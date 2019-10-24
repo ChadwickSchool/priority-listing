@@ -23,6 +23,10 @@ export class AppComponent {
   done = [
   ];
 
+  choiceTwo = [
+
+  ];
+
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
