@@ -5,7 +5,7 @@
     cdkDropList
     #todoList="cdkDropList"
     [cdkDropListData]="todo"
-    [cdkDropListConnectedTo]="[doneList, choiceTwoList]"
+    [cdkDropListConnectedTo]="[choiceOneList, choiceTwoList, choiceThreeList, choiceFourList, choiceFiveList]"
     class="example-list"
     (cdkDropListDropped)="drop($event)">
     <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
@@ -13,16 +13,16 @@
 </div>
 
 <div class="example-container">
-  <h2>Choice Priority</h2>
+  <h2>Choice 1</h2>
 
   <div
     cdkDropList
-    #doneList="cdkDropList"
-    [cdkDropListData]="done"
-    [cdkDropListConnectedTo]="[choiceTwoList, todoList]"
+    #choiceOneList="cdkDropList"
+    [cdkDropListData]="choiceOne"
+    [cdkDropListConnectedTo]="[choiceTwoList, todoList, choiceThreeList, choiceFourList, choiceFiveList]"
     class="example-list"
     (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+    <div class="example-box" *ngFor="let item of choiceOne" cdkDrag>{{item}}</div>
   </div>
 
   <h2>Choice 2</h2>
@@ -30,9 +30,42 @@
     cdkDropList
     #choiceTwoList="cdkDropList"
     [cdkDropListData]="choiceTwo"
-    [cdkDropListConnectedTo]="[todoList, doneList]"
+    [cdkDropListConnectedTo]="[todoList, choiceOneList, choiceThreeList, choiceFourList, choiceFiveList]"
     class="example-list"
     (cdkDropListDropped)="drop($event)">
     <div class="example-box" *ngFor="let item of choiceTwo" cdkDrag>{{item}}</div>
+  </div>
+
+  <h2>Choice 3</h2>
+  <div
+    cdkDropList
+    #choiceThreeList="cdkDropList"
+    [cdkDropListData]="choiceThree"
+    [cdkDropListConnectedTo]="[todoList, choiceOneList, choiceTwoList, choiceFourList, choiceFiveList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of choiceThree" cdkDrag>{{item}}</div>
+  </div>
+
+  <h2>Choice 4</h2>
+  <div
+    cdkDropList
+    #choiceFourList="cdkDropList"
+    [cdkDropListData]="choiceFour"
+    [cdkDropListConnectedTo]="[todoList, choiceOneList, choiceTwoList, choiceThreeList, choiceFiveList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of choiceFour" cdkDrag>{{item}}</div>
+  </div>
+
+  <h2>Choice 5</h2>
+  <div
+    cdkDropList
+    #choiceFiveList="cdkDropList"
+    [cdkDropListData]="choiceFive"
+    [cdkDropListConnectedTo]="[todoList, choiceOneList, choiceTwoList, choiceThreeList, choiceFourList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of choiceFive" cdkDrag>{{item}}</div>
   </div>
 </div>
