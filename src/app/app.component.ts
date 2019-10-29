@@ -25,51 +25,33 @@ export class AppComponent {
   choiceIDs() {
     return this.choices.map((choice, i) => 'choice' + i).concat(['todo'])
   }
+  hasExtras() {
+    for (let i = 0; i < this.choices.length; i++) {
+      if (this.choices[i].length >= 2) {
+        return true;
+      }
+    }
+    return false;
+
+  }
   drop(event: CdkDragDrop<string[]>) {
     console.log(event)
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      console.log(event.previousContainer);
+      console.log(event.previousIndex, event.currentIndex);
       transferArrayItem(event.previousContainer.data,
                         event.container.data,
                         event.previousIndex,
                         event.currentIndex);
-    // } else {
-    //     let currentID = event.container.id;
 
-        // if (currentID === "cdk-drop-list-1" && this.choiceTwo.length === 0) {
-        //   transferArrayItem(this.todo, this.choiceOne, event.previousIndex, 0);
-        //   transferArrayItem(this.choiceOne, this.choiceTwo, 1, 0);
-        // } else if (this.choiceTwo.length === 1) {
-        //   transferArrayItem(this.todo, this.choiceOne, event.previousIndex, 0);
-        //   transferArrayItem(this.choiceOne, this.choiceTwo, 1, 0);
-        //   transferArrayItem(this.choiceTwo, this.choiceThree, 2, 1);
-        // } else if (this.choiceThree.length === 1 && this.choiceTwo.length === 1) {
-        //   transferArrayItem(this.todo, this.choiceOne, event.previousIndex, 0);
-        //   transferArrayItem(this.choiceOne, this.choiceTwo, 1, 0);
-        //   transferArrayItem(this.choiceTwo, this.choiceThree, 2, 1);
-        //   transferArrayItem(this.choiceThree, this.choiceFour, 3, 2);
-        // } else if (this.choiceFour.length === 1 && this.choiceTwo.length === 1 && this.choiceThree.length === 1) {
-        //   transferArrayItem(this.todo, this.choiceOne, event.previousIndex, 0);
-        //   transferArrayItem(this.choiceOne, this.choiceTwo, 1, 0);
-        //   transferArrayItem(this.choiceTwo, this.choiceThree, 2, 1);
-        //   transferArrayItem(this.choiceThree, this.choiceFour, 3, 2);
-        //   transferArrayItem(this.choiceFour, this.choiceFive, 4, 3);
-        // }
-
-        // if (currentID === "cdk-drop-list-2" && this.choiceThree.length === 0) {
-        //   transferArrayItem(this.todo, this.choiceTwo, event.previousIndex, 0);
-        //   transferArrayItem(this.choiceTwo, this.choiceThree, 1, 0);
-        // }
-        // if (currentID === "cdk-drop-list-3" && this.choiceFour.length === 0) {
-        //   transferArrayItem(this.todo, this.choiceThree, event.previousIndex, 0);
-        //   transferArrayItem(this.choiceThree, this.choiceFour, 1, 0);
-        // }
-        // if (currentID === "cdk-drop-list-4" && this.choiceFive.length === 0) {
-        //   transferArrayItem(this.todo, this.choiceFour, event.previousIndex, 0);
-        //   transferArrayItem(this.choiceFour, this.choiceFive, 1, 0);
-        // }
-    }
-  }
+      while (this.hasExtras()) {
+        for (let i = 0; i < this.choices.length - 1; i++) {
+          if (this.choices[i].length >= 2){
+            transferArrayItem(this.choices[i], this.choices[i+1], 1, 0);
+          }
+        }
+      }
+   }
+}
 }
