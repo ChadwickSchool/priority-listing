@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "drag-and-drop-ranking-system": {
+      "hosting": {
+        "drag": [
+          "drag-and-drop-ranking-system"
+        ]
+      }
+    }
+  }
+}

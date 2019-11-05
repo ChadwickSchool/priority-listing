@@ -1,25 +1,25 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem
-} from "@angular/cdk/drag-drop";
+} from '@angular/cdk/drag-drop';
 
 /**
  * @title Drag&Drop connected sorting
  */
 @Component({
-  selector: "app-component",
-  templateUrl: "app.component.html",
-  styleUrls: ["app.component.scss"]
+  selector: 'app-component',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  todo = ["Task 1", "Task 2", "Task 3", "Task 4", "Task 5"];
+  todo = ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5'];
 
   choices = [[], [], [], [], []];
 
   choiceIDs() {
-    return this.choices.map((choice, i) => "choice" + i).concat(["todo"]);
+    return this.choices.map((choice, i) => 'choice' + i).concat(['todo']);
   }
   hasExtras() {
     for (let i = 0; i < this.choices.length; i++) {
