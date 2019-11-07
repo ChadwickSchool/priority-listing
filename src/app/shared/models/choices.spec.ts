@@ -1,0 +1,3 @@
+describe('Choices Class Tests', () => {
+
+});
