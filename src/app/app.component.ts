@@ -18,6 +18,8 @@ export class AppComponent {
 
   choices = [[], [], [], [], []];
 
+  result = [];
+
   choiceIDs() {
     return this.choices.map((choice, i) => "choice" + i).concat(["todo"]);
   }
@@ -28,6 +30,13 @@ export class AppComponent {
       }
     }
     return false;
+  }
+
+  saveChoiceOrder(event: CdkDragDrop<string[]>) {
+    for (let i = 0; i < this.choices.length; i++) {
+      this.result[i] = this.choices[i];
+    }
+    console.log(this.result);
   }
 
   drop(event: CdkDragDrop<string[]>) {
