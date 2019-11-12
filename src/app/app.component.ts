@@ -4,6 +4,7 @@ import {
   moveItemInArray,
   transferArrayItem
 } from '@angular/cdk/drag-drop';
+import { SaveChoiceService } from './services/save-choice.service';
 
 /**
  * @title Drag&Drop connected sorting
@@ -19,6 +20,7 @@ export class AppComponent {
   choices = [[], [], [], [], []];
 
   result = [];
+  constructor(private saveChoiceService: SaveChoiceService) {}
 
   choiceIDs() {
     return this.choices.map((choice, i) => 'choice' + i).concat(['todo']);
@@ -35,7 +37,9 @@ export class AppComponent {
   saveChoiceOrder(event: CdkDragDrop<string[]>) {
     for (let i = 0; i < this.choices.length; i++) {
       this.result[i] = this.choices[i];
+    //   this.choices.uid = i;
     }
+    this.saveChoiceService.addChoices(this.result);
     console.log(this.result);
   }
 
