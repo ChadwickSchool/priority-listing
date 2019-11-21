@@ -1,0 +1,31 @@
+<div class="example-container">
+  <h2>Tasks</h2>
+
+  <div
+    cdkDropList
+    id="todo"
+    [cdkDropListData]="todo"
+    [cdkDropListConnectedTo]="choiceIDs()"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+  </div>
+</div>
+
+<div class="example-container">
+  <div *ngFor="let choiceList of choices; let i = index">
+    <h2>Choice {{i + 1}}</h2>
+
+      <div
+      cdkDropList
+      #choices[i]List="cdkDropList"
+      [id]="'choice' + i"
+      [cdkDropListData]="choices[i]"
+      [cdkDropListConnectedTo]="choiceIDs()"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of choices[i]" cdkDrag>{{item}}</div>
+      </div>
+  </div>
+  <button mat-stroked-button color="primary" (click)="saveChoiceOrder()">Submit</button>
+</div>

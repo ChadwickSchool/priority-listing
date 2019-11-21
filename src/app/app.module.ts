@@ -1,18 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MaterialModule } from './material.module';
+import { MaterialModule } from './shared/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppComponent } from '../app.component';
 import { environment } from 'src/environments/environment';
+import { TeacherComponent } from './teacher/teacher.component';
+import { StudentComponent } from './student/student.component';
+import { AppComponent } from './app.component';
 
 // firebase imports
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AppRoutingModule } from './app-routing.module';
+
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, TeacherComponent, StudentComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -20,7 +24,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
