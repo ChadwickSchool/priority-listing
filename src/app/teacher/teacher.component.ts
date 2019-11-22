@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./teacher.component.scss']
 })
 export class TeacherComponent implements OnInit {
+  options = [];
 
   constructor() { }
 
   ngOnInit() {
+    this.options.length = 5;
+  }
+
+  submitOptions() {
 
   }
 
