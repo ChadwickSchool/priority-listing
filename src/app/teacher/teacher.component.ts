@@ -1,3 +1,4 @@
+import { SaveOptionsService } from '../services/save-options.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,30 +11,48 @@ export class TeacherComponent implements OnInit {
   selectedOptionsArray: Array<number>;
 
   options = [
-    {name: '2', value: 2},
-    {name: '3', value: 3},
-    {name: '4', value: 4},
-    {name: '5', value: 5},
-    {name: '6', value: 6},
-    {name: '7', value: 7},
-    {name: '8', value: 8},
-    {name: '9', value: 9},
-    {name: '10', value: 10}
+    {name: '2'},
+    {name: '3'},
+    {name: '4'},
+    {name: '5'},
+    {name: '6'},
+    {name: '7'},
+    {name: '8'},
+    {name: '9'},
+    {name: '10'}
   ];
 
-  constructor() { }
+  result = [];
+
+  constructor(private saveOptionService: SaveOptionsService) { }
 
   ngOnInit() {
-    // this.options.length = 10;
+
   }
 
   updateOptions() {
     this.selectedOptionsArray = new Array(parseInt(this.selectedOption, 10));
     console.log(this.selectedOption, this.selectedOptionsArray);
+    // this.options.length = this.options.value;
   }
 
   submitOptions() {
+    console.log('Selected Array', this.selectedOptionsArray)
+    for (let i = 0; i < this.selectedOptionsArray.length; i++) {
+      /*
+      * if option is not undefined
+      * result.push(option)
+      */
 
+      this.result[i] = this.options[i];
+    }
+    console.log(this.result);
+
+    this.saveOptionService.addOptions(this.result);
+    console.log(this.result);
   }
 
+  indexTracker(index: number, value: any) {
+    return index;
+  }
 }
