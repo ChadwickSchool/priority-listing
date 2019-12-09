@@ -37,19 +37,19 @@ export class TeacherComponent implements OnInit {
   }
 
   submitOptions() {
-    console.log('Selected Array', this.selectedOptionsArray)
+    console.log('Selected Array', this.selectedOptionsArray);
     for (let i = 0; i < this.selectedOptionsArray.length; i++) {
       /*
       * if option is not undefined
       * result.push(option)
       */
 
-      this.result[i] = this.options[i];
+      this.result[i] = this.selectedOptionsArray[i];
     }
-    console.log(this.result);
+    console.log('result is', this.result);
 
     this.saveOptionService.addOptions(this.result);
-    console.log(this.result);
+    console.log('result is after service called', this.result);
   }
 
   indexTracker(index: number, value: any) {

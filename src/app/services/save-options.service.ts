@@ -28,9 +28,9 @@ export class SaveOptionsService {
     const firebaseOptions = [];
 
     for (const optionsArray of options) {
-      firebaseOptions.push(optionsArray[0]);
+      firebaseOptions.push(optionsArray);
     }
-    console.log('firebaseChoices', firebaseOptions);
+    console.log('firebaseOptions', firebaseOptions);
     const newRanking = new OptionsClass(
       id,
       // choices.uid,

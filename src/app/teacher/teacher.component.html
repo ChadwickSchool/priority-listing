@@ -4,7 +4,6 @@
             {{option.name}}
           </option>
   </select>
-  {{selectedOptionsArray | json}}
   <div *ngFor="let optionList of selectedOptionsArray; let i = index; trackBy:indexTracker">
     <h2>Option {{i+1}}</h2>
     <mat-form-field>
