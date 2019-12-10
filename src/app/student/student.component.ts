@@ -17,16 +17,20 @@ import { GetOptionsService } from '../services/get-options.service';
   styleUrls: ['./student.component.scss']
 })
 export class StudentComponent {
-  todo = ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5'];
+  todo = [];
 
   assignedChoices = [];
 
-  choices = [[], [], [], [], []];
+  choices = [];
 
   result = [];
   constructor(private saveChoiceService: SaveChoiceService, private getOptionsService: GetOptionsService) {
     this.getOptionsService.getOptions().subscribe(options => {
       this.todo = options[0].tasks;
+
+      for (let todo of this.todo) {
+        this.choices.push([]);
+      }
     });
   }
 
