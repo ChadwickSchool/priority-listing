@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -16,7 +16,8 @@ import { GetOptionsService } from '../services/get-options.service';
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.scss']
 })
-export class StudentComponent {
+export class StudentComponent implements OnInit {
+
   todo = ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5'];
 
   assignedChoices = [];
@@ -25,6 +26,10 @@ export class StudentComponent {
 
   result = [];
   constructor(private saveChoiceService: SaveChoiceService, private getOptionsService: GetOptionsService) {
+
+  }
+
+  ngOnInit(): void {
     this.getOptionsService.getOptions().subscribe(options => {
       this.todo = options[0].tasks;
     });

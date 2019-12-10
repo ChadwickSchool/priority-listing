@@ -25,12 +25,12 @@ describe('StudentComponent', () => {
     }).compileComponents();
   }));
 
-  fit('should create the app', () => {
+  fit('should set todo correctly from service', () => {
     const fixture = TestBed.createComponent(StudentComponent);
     const app = fixture.debugElement.componentInstance;
     mockGetOptionsService.getOptions.and.returnValue(of(OPTIONS));
     fixture.detectChanges();
-    expect(fixture.componentInstance.todo).toBe(GetOptionsService);
+    expect(fixture.componentInstance.todo[0]).toBe('sleep');
   });
 
   it(`should have as title 'drag'`, () => {
