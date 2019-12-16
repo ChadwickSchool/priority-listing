@@ -25,7 +25,7 @@ describe('StudentComponent', () => {
     }).compileComponents();
   }));
 
-  fit('should set todo correctly from service', () => {
+  it('should set todo correctly from service', () => {
     const fixture = TestBed.createComponent(StudentComponent);
     const app = fixture.debugElement.componentInstance;
     mockGetOptionsService.getOptions.and.returnValue(of(OPTIONS));
@@ -41,6 +41,7 @@ describe('StudentComponent', () => {
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(StudentComponent);
+    mockGetOptionsService.getOptions.and.returnValue(of(OPTIONS));
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain(

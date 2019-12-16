@@ -12,17 +12,18 @@ import ChoiceClass from '../shared/models/choices.model';
 })
 export class SaveChoiceService {
   choicesRef: AngularFirestoreCollection<Choices>;
-  choices: Observable<Choices[]>;
+  choices$: Observable<Choices[]>;
   constructor(private afs: AngularFirestore) {
     this.choicesRef = afs.collection<Choices>('choices');
-    this.choices = this.choicesRef.valueChanges();
+    this.choices$ = this.choicesRef.valueChanges();
+    console.log('created service');
   }
 
   getChoices(): Observable<Choices[]> {
-    return this.choices;
+    return this.choices$;
   }
 
-  addChoices(choices: any) {
+  addChoices(choices: Array<Array<Choices>>) {
     const id = this.afs.createId();
     console.log('choices', choices[0]);
     const firebaseChoices = [];
