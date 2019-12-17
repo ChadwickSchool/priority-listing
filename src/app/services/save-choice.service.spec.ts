@@ -1,17 +1,19 @@
 import { TestBed, async } from '@angular/core/testing';
 
 import { SaveChoiceService } from './save-choice.service';
-import { Choices } from '../shared/models/choices';
+
 import { of } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Choice } from '../shared/models/choice.model';
+import ChoiceClass from '../shared/models/choice';
 
 describe('SaveChoiceService', () => {
   // let service: SaveChoiceService;
-  const input: Array<Choices> = [];
+  const input: Array<Choice> = [];
   const data = of(input);
 
   const docStub = {
-    set(choice: Choices) {
+    set(choice: Choice) {
       input.push(choice);
     }
   };
@@ -41,11 +43,12 @@ describe('SaveChoiceService', () => {
 
   fit('should add choice when add is called', (done: DoneFn) => {
     const service: SaveChoiceService = TestBed.get(SaveChoiceService);
-    service.addChoices('choice1');
+    const expectedRanking = ['choice1']
+    service.addChoices(expectedRanking);
+    const expectedResult = {id: '100', ranking: expectedRanking};
     service.choices$.subscribe(choices => {
-      expect(service.choices$).toContain('choice1');
+      expect(choices).toContain(expectedResult);
       done();
     });
   });
 });
-

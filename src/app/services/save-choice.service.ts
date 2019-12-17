@@ -1,41 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Choices } from '../shared/models/choices';
 import {
   AngularFirestoreCollection,
   AngularFirestore
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import ChoiceClass from '../shared/models/choices.model';
+import { Choice } from '../shared/models/choice.model';
+import ChoiceClass from '../shared/models/choice';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SaveChoiceService {
-  choicesRef: AngularFirestoreCollection<Choices>;
-  choices$: Observable<Choices[]>;
+  choicesRef: AngularFirestoreCollection<Choice>;
+  choices$: Observable<Choice[]>;
   constructor(private afs: AngularFirestore) {
-    this.choicesRef = afs.collection<Choices>('choices');
+    this.choicesRef = afs.collection<Choice>('choices');
     this.choices$ = this.choicesRef.valueChanges();
     console.log('created service');
   }
 
-  getChoices(): Observable<Choices[]> {
+  getChoices(): Observable<Choice[]> {
     return this.choices$;
   }
 
-  addChoices(choices: Array<Array<Choices>>) {
+  addChoices(choices: Array<string>) {
     const id = this.afs.createId();
-    console.log('choices', choices[0]);
-    const firebaseChoices = [];
 
-    for (const choiceArray of choices) {
-      firebaseChoices.push(choiceArray[0]);
-    }
-    console.log('firebaseChoices', firebaseChoices);
     const newRanking = new ChoiceClass(
       id,
-      // choices.uid,
-      firebaseChoices
+      choices
     );
     this.choicesRef.doc(id).set(Object.assign({}, newRanking));
   }

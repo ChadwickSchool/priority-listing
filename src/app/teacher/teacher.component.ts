@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TeacherComponent implements OnInit {
   selectedOption: string;
-  selectedOptionsArray: Array<number>;
+  selectedOptionsArray: Array<string>;
 
   options = [
     {name: '2'},
@@ -22,7 +22,7 @@ export class TeacherComponent implements OnInit {
     {name: '10'}
   ];
 
-  result = [];
+  result: Array<string> = [];
 
   constructor(private saveOptionService: SaveOptionsService) { }
 

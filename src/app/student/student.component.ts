@@ -18,7 +18,7 @@ import { GetOptionsService } from '../services/get-options.service';
 })
 export class StudentComponent implements OnInit {
 
-  todo = ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5'];
+  todo = ['Loading...'];
 
   assignedChoices = [];
 
@@ -60,10 +60,9 @@ export class StudentComponent implements OnInit {
   }
 
   saveChoiceOrder(event: CdkDragDrop<string[]>) {
+    console.log(this.choices);
     for (let i = 0; i < this.choices.length; i++) {
-      this.result[i] = this.choices[i];
-
-    //   this.choices.uid = i;
+      this.result[i] = this.choices[i][0];
     }
     this.saveChoiceService.addChoices(this.result);
   }

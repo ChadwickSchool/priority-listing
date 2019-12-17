@@ -1,11 +1,12 @@
-import ChoiceClass from "./choices.model";
+import ChoiceClass from './choice';
+
 
 
 describe('Choices Class Tests', () => {
   let choice: ChoiceClass = null;
 
   beforeEach(() => {
-    choice = new ChoiceClass();
+    // choice = new ChoiceClass();
   });
 
 });
