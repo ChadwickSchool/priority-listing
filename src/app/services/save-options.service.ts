@@ -4,8 +4,9 @@ import {
   AngularFirestore
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Options } from '../shared/models/options';
-import OptionsClass from '../shared/models/options.model';
+import { Options } from '../shared/models/options.model';
+import OptionsClass from '../shared/models/options';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class SaveOptionsService {
     return this.options;
   }
 
-  addOptions(options: any) {
+  addOptions(options: Array<string>) {
     const id = this.afs.createId();
     console.log('options', options);
     const firebaseOptions = [];
@@ -33,7 +34,6 @@ export class SaveOptionsService {
     console.log('firebaseOptions', firebaseOptions);
     const newRanking = new OptionsClass(
       id,
-      // choices.uid,
       firebaseOptions
     );
     this.optionsRef.doc(id).set(Object.assign({}, newRanking));

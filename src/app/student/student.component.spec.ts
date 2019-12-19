@@ -1,19 +1,36 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StudentComponent } from './student.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { SaveChoiceService } from '../services/save-choice.service';
+import { GetOptionsService } from '../services/get-options.service';
+import { of } from 'rxjs';
 
 describe('StudentComponent', () => {
+  let mockSaveChoiceService;
+  let mockGetOptionsService;
+  let OPTIONS;
   beforeEach(async(() => {
+    mockSaveChoiceService = jasmine.createSpyObj(['getChoices', 'addChoices']);
+    mockGetOptionsService = jasmine.createSpyObj(['getOptions', 'addOptions']);
+    OPTIONS = [{tasks: ['sleep', 'eat', 'brush teeth', 'take a shower', 'go to the bathroom']}];
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [StudentComponent]
+      imports: [RouterTestingModule, DragDropModule],
+      declarations: [StudentComponent],
+      providers: [
+        { provide: SaveChoiceService, useValue: mockSaveChoiceService },
+        { provide: GetOptionsService, useValue: mockGetOptionsService }
+
+      ]
     }).compileComponents();
   }));
 
-  it('should create the app', () => {
+  it('should set todo correctly from service', () => {
     const fixture = TestBed.createComponent(StudentComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    mockGetOptionsService.getOptions.and.returnValue(of(OPTIONS));
+    fixture.detectChanges();
+    expect(fixture.componentInstance.todo[0]).toBe('sleep');
   });
 
   it(`should have as title 'drag'`, () => {
@@ -24,6 +41,7 @@ describe('StudentComponent', () => {
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(StudentComponent);
+    mockGetOptionsService.getOptions.and.returnValue(of(OPTIONS));
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain(

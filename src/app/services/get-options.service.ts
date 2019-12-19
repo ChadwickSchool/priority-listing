@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Options } from '../shared/models/options';
+import { Options } from '../shared/models/options.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +16,6 @@ export class GetOptionsService {
 
   // this gets the options assigned by the teacher on to the student's screen
   getOptions(): Observable<Options[]> {
-    this.options.subscribe(option => {
-      console.log(option);
-    });
-    console.log(this.options);
     return this.options;
   }
 

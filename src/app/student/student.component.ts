@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -16,15 +16,20 @@ import { GetOptionsService } from '../services/get-options.service';
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.scss']
 })
-export class StudentComponent {
-  todo = [];
+export class StudentComponent implements OnInit {
+
+  todo = ['Loading...'];
 
   assignedChoices = [];
 
   choices = [];
 
-  result = [];
+  result: Array<string> = [];
   constructor(private saveChoiceService: SaveChoiceService, private getOptionsService: GetOptionsService) {
+
+  }
+
+  ngOnInit(): void {
     this.getOptionsService.getOptions().subscribe(options => {
       this.todo = options[0].tasks;
 
@@ -47,18 +52,17 @@ export class StudentComponent {
     return false;
   }
 
-  getAssignedChoices(event: CdkDragDrop<string[]>) {
+  getAssignedChoices(event: CdkDragDrop<Array<string>>) {
     for (let i = 0; i < this.todo.length; i++) {
       this.todo[i] = this.assignedChoices[i];
     }
     this.getOptionsService.getOptions();
   }
 
-  saveChoiceOrder(event: CdkDragDrop<string[]>) {
+  saveChoiceOrder(event: CdkDragDrop<Array<string>>) {
+    console.log(this.choices);
     for (let i = 0; i < this.choices.length; i++) {
-      this.result[i] = this.choices[i];
-
-    //   this.choices.uid = i;
+      this.result[i] = this.choices[i][0];
     }
     this.saveChoiceService.addChoices(this.result);
   }

@@ -1,3 +1,0 @@
-describe('Choices Class Tests', () => {
-
-});
