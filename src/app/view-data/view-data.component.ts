@@ -19,6 +19,7 @@ import { Options } from '../shared/models/options.model';
 })
 export class ViewDataComponent implements OnInit {
   winner: string;
+  solution: string;
   dataLeft: string[][]; // List of student choices. (List of list of strings)
   candidatesLeft: string[]; // List of option names. (List of strings)
   choicesRef: AngularFirestoreCollection<Choice>;
@@ -31,6 +32,7 @@ export class ViewDataComponent implements OnInit {
   ) {
     this.choicesRef = afs.collection<Choice>('choices');
     this.choices = this.choicesRef.valueChanges();
+    this.solution = '';
     // this.rankVotesService = new RankVotesService(candidates, data);
   }
 
@@ -40,16 +42,11 @@ export class ViewDataComponent implements OnInit {
   }
 
   async fetchAndSolve() {
-    console.log(1);
     await this.TeacherOptions();
-    console.log(2, this.candidatesLeft);
     await this.StudentChoices();
-    console.log(3, this.dataLeft);
-    let solution = this.solve();
+    this.solution = this.solve();
 
-    console.log(4);
-    console.log('Solution', solution);
-    return solution;
+    return this.solution;
   }
 
   async TeacherOptions() {
@@ -76,14 +73,25 @@ export class ViewDataComponent implements OnInit {
 
   }
 
-  solve() {
+  findRoundScores() {
     let roundScores = {};
 
+    // Give a score based on first-place votes.
+    for (let i = 0; i < this.dataLeft.length; i++) {
+      if (!roundScores[this.dataLeft[i][0]]) {
+        roundScores[this.dataLeft[i][0]] = 0;
+      }
+
+      roundScores[this.dataLeft[i][0]]++;
+    }
+
+    return roundScores;
+  }
+
+  solve() {
     // Go through all of the rounds
     while (this.candidatesLeft.length > 2) {
-      console.log("Left", this.candidatesLeft);
-      console.log('data', this.dataLeft);
-      roundScores = {};
+      let roundScores = this.findRoundScores();
 
       // Give a score based on first-place votes.
       for (let i = 0; i < this.dataLeft.length; i++) {
@@ -93,8 +101,6 @@ export class ViewDataComponent implements OnInit {
 
         roundScores[this.dataLeft[i][0]]++;
       }
-
-      console.log("scores", roundScores);
 
       let worstCandidate;
       let worstCandidateScore = -1;
@@ -115,6 +121,8 @@ export class ViewDataComponent implements OnInit {
         this.dataLeft[i].splice(this.dataLeft[i].indexOf(worstCandidate), 1);
       }
     }
+
+    let roundScores = this.findRoundScores();
 
     // Compare the final two candidates and return the better one.
     if (roundScores[this.candidatesLeft[0]] > roundScores[this.candidatesLeft[1]]) {
