@@ -1,3 +1,6 @@
+<mat-form-field>
+  <input matInput placeholder="Survey Name" [(ngModel)]="surveyName">
+</mat-form-field>
 <div class="container">
   <select [(ngModel)]="selectedOption" name="first" (change)="updateOptions()">
           <option *ngFor = "let option of options; let i = index">

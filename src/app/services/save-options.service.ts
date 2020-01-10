@@ -23,7 +23,7 @@ export class SaveOptionsService {
     return this.options;
   }
 
-  addOptions(options: Array<string>) {
+  addOptions(options: Array<string>, surveyName: string) {
     const id = this.afs.createId();
     console.log('options', options);
     const firebaseOptions = [];
@@ -34,6 +34,7 @@ export class SaveOptionsService {
     console.log('firebaseOptions', firebaseOptions);
     const newRanking = new OptionsClass(
       id,
+      surveyName,
       firebaseOptions
     );
     this.optionsRef.doc(id).set(Object.assign({}, newRanking));

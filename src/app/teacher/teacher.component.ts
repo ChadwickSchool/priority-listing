@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class TeacherComponent implements OnInit {
   selectedOption: string;
   selectedOptionsArray: Array<string>;
+  surveyName: string;
 
   options = [
     {name: '2'},
@@ -24,7 +25,9 @@ export class TeacherComponent implements OnInit {
 
   result: Array<string> = [];
 
-  constructor(private saveOptionService: SaveOptionsService) { }
+  constructor(private saveOptionService: SaveOptionsService) {
+    this.surveyName = '';
+  }
 
   ngOnInit() {
 
@@ -37,6 +40,7 @@ export class TeacherComponent implements OnInit {
   }
 
   submitOptions() {
+    console.log('name: ' + this.surveyName);
     console.log('Selected Array', this.selectedOptionsArray);
     for (let i = 0; i < this.selectedOptionsArray.length; i++) {
       /*
@@ -48,7 +52,7 @@ export class TeacherComponent implements OnInit {
     }
     console.log('result is', this.result);
 
-    this.saveOptionService.addOptions(this.result);
+    this.saveOptionService.addOptions(this.result, this.surveyName);
     console.log('result is after service called', this.result);
   }
 
