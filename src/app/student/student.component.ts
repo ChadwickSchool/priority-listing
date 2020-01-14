@@ -98,7 +98,7 @@ export class StudentComponent implements OnInit {
     for (let i = 0; i < this.choices.length; i++) {
       this.result[i] = this.choices[i][0];
     }
-    this.saveChoiceService.addChoices(this.result);
+    this.saveChoiceService.addChoices(this.result, this.surveyName);
   }
 
   drop(event: CdkDragDrop<string[]>) {
