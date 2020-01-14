@@ -33,7 +33,8 @@ export class TeacherComponent implements OnInit {
 
   }
 
-  updateOptions() {
+  updateOptions(name: string) {
+    this.selectedOption = name;
     this.selectedOptionsArray = new Array(parseInt(this.selectedOption, 10));
     console.log(this.selectedOption, this.selectedOptionsArray);
     // this.options.length = this.options.value;
