@@ -7,6 +7,8 @@ import {
 } from '@angular/cdk/drag-drop';
 import { SaveChoiceService } from '../services/save-choice.service';
 import { GetOptionsService } from '../services/get-options.service';
+import { Options } from '../shared/models/options.model';
+import { take } from 'rxjs/operators';
 
 /**
  * @title Drag&Drop connected sorting
@@ -24,18 +26,50 @@ export class StudentComponent implements OnInit {
 
   choices = [];
 
+  options: Options[];
+
+  surveyNames: Array<string>;
+
+  surveyName = '';
+
   result: Array<string> = [];
   constructor(private saveChoiceService: SaveChoiceService, private getOptionsService: GetOptionsService) {
-
+    this.options = [];
+    this.surveyNames = [];
   }
 
   ngOnInit(): void {
-    this.getOptionsService.getOptions().subscribe(options => {
-      this.todo = options[0].tasks;
+    this.showOptions();
+    // this.getOptionsService.getOptionsByName(this.surveyName).subscribe(options => {
+    //   this.todo = options[0].tasks;
 
+    //   for (let todo of this.todo) {
+    //     this.choices.push([]);
+    //   }
+    // });
+  }
+
+  async showOptions() {
+    this.options = await this.getOptionsService.getOptions().pipe(take(1)).toPromise();
+    this.showSurveyNames();
+  }
+
+  showTasks(name: string) {
+    this.surveyName = name;
+    console.log(this.surveyName);
+    this.getOptionsService.getOptionsByName(this.surveyName).subscribe(options => {
+      console.log(options[0]);
+      this.todo = options[0].tasks;
+      this.choices = [];
       for (let todo of this.todo) {
         this.choices.push([]);
       }
+    });
+  }
+
+  showSurveyNames() {
+    this.options.forEach(element => {
+      this.surveyNames.push(element.surveyName);
     });
   }
 
