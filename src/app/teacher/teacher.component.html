@@ -1,12 +1,12 @@
-<mat-form-field>
+<mat-form-field class="name">
   <input matInput placeholder="Survey Name" [(ngModel)]="surveyName">
 </mat-form-field>
-<div class="container">
+<div class="center">
   <select [(ngModel)]="selectedOption" name="first" (change)="updateOptions()">
           <option *ngFor = "let option of options; let i = index">
             {{option.name}}
           </option>
-  </select>
+        </select>
   <div *ngFor="let optionList of selectedOptionsArray; let i = index; trackBy:indexTracker">
     <h2>Option {{i+1}}</h2>
     <mat-form-field>
