@@ -1,4 +1,15 @@
 <div class="example-container">
+  <div class="container">
+    <mat-form-field>
+      <mat-label>Select Survey</mat-label>
+        <mat-select [(value)]="surveyName">
+                <mat-option *ngFor = "let name of surveyNames; let i = index"
+                [(value)] = "name"
+                (click)="showTasks(name)">
+                  {{name}}
+                </mat-option>
+        </mat-select>
+    </mat-form-field>
   <h2>Tasks</h2>
 
   <div

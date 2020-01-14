@@ -19,6 +19,11 @@ export class GetOptionsService {
     return this.options;
   }
 
+  getOptionsByName(name: string) {
+    const query = this.afs.collection<Options>('options', ref => ref
+      .where('surveyName', '==', name));
+    return query.valueChanges();
+  }
 
   // this one is what that the teacher calls to make the tasks
   addOptions(options: any) {
