@@ -3,7 +3,8 @@
 </mat-form-field>
 <div class="center">
   <mat-form-field>
-    <mat-select [(value)]="selectedOption" name="first">
+    <mat-label>Number of Options</mat-label>
+   <mat-select [(value)]="selectedOption" name="first">
          <mat-option *ngFor = "let option of options; let i = index"
           [(value)]="option.name"
           (click)="updateOptions(option.name)">
