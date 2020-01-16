@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { DATA, CANDIDATES } from '../app.module';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,10 @@ export class RankVotesService {
   //   - data: List of student choices. (List of list of strings).
   //
   //
-  constructor(candidates, data) {
+  constructor(
+    @Inject(DATA) protected data: Array<Array<string>>,
+    @Inject(CANDIDATES) protected candidates: Array<string>
+  ) {
     this.dataLeft = data;
     this.candidatesLeft = candidates;
   }
@@ -34,7 +38,10 @@ export class RankVotesService {
 
       // Find candidate with lowest first-place votes.
       for (let candidate of this.candidatesLeft) {
-        if (worstCandidateScore === -1 || roundScores[candidate] < worstCandidateScore) {
+        if (
+          worstCandidateScore === -1 ||
+          roundScores[candidate] < worstCandidateScore
+        ) {
           worstCandidate = candidate;
           worstCandidateScore = roundScores[candidate];
         }
@@ -50,7 +57,9 @@ export class RankVotesService {
     }
 
     // Compare the final two candidates and return the better one.
-    if (roundScores[this.candidatesLeft[0]] > roundScores[this.candidatesLeft[1]]) {
+    if (
+      roundScores[this.candidatesLeft[0]] > roundScores[this.candidatesLeft[1]]
+    ) {
       return this.candidatesLeft[0];
     } else {
       return this.candidatesLeft[1];

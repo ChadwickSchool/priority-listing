@@ -12,15 +12,15 @@ export class TeacherComponent implements OnInit {
   surveyName: string;
 
   options = [
-    {name: '2'},
-    {name: '3'},
-    {name: '4'},
-    {name: '5'},
-    {name: '6'},
-    {name: '7'},
-    {name: '8'},
-    {name: '9'},
-    {name: '10'}
+    { name: '2' },
+    { name: '3' },
+    { name: '4' },
+    { name: '5' },
+    { name: '6' },
+    { name: '7' },
+    { name: '8' },
+    { name: '9' },
+    { name: '10' }
   ];
 
   result: Array<string> = [];
@@ -29,9 +29,7 @@ export class TeacherComponent implements OnInit {
     this.surveyName = '';
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   updateOptions() {
     this.selectedOptionsArray = new Array(parseInt(this.selectedOption, 10));
@@ -44,9 +42,9 @@ export class TeacherComponent implements OnInit {
     console.log('Selected Array', this.selectedOptionsArray);
     for (let i = 0; i < this.selectedOptionsArray.length; i++) {
       /*
-      * if option is not undefined
-      * result.push(option)
-      */
+       * if option is not undefined
+       * result.push(option)
+       */
 
       this.result[i] = this.selectedOptionsArray[i];
     }

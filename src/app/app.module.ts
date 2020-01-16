@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, InjectionToken } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './shared/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,9 +15,20 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { ViewDataComponent } from './view-data/view-data.component';
 
+export const DATA: InjectionToken<string> = new InjectionToken<
+  Array<Array<string>>
+>('DATA');
+export const CANDIDATES: InjectionToken<string> = new InjectionToken<
+  Array<string>
+>('CANDIDATES');
 
 @NgModule({
-  declarations: [AppComponent, TeacherComponent, StudentComponent, ViewDataComponent],
+  declarations: [
+    AppComponent,
+    TeacherComponent,
+    StudentComponent,
+    ViewDataComponent
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -28,7 +39,10 @@ import { ViewDataComponent } from './view-data/view-data.component';
     AngularFireAuthModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: DATA, useValue: [[]] },
+    { provide: CANDIDATES, useValue: [] }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

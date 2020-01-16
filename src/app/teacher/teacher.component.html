@@ -1,17 +1,25 @@
 <mat-form-field class="name">
-  <input matInput placeholder="Survey Name" [(ngModel)]="surveyName">
+  <input matInput placeholder="Survey Name" [(ngModel)]="surveyName" />
 </mat-form-field>
 <div class="center">
   <select [(ngModel)]="selectedOption" name="first" (change)="updateOptions()">
-          <option *ngFor = "let option of options; let i = index">
-            {{option.name}}
-          </option>
-        </select>
-  <div *ngFor="let optionList of selectedOptionsArray; let i = index; trackBy:indexTracker">
-    <h2>Option {{i+1}}</h2>
+    <option *ngFor="let option of options; let i = index">
+      {{ option.name }}
+    </option>
+  </select>
+  <div
+    *ngFor="
+      let optionList of selectedOptionsArray;
+      let i = index;
+      trackBy: indexTracker
+    "
+  >
+    <h2>Option {{ i + 1 }}</h2>
     <mat-form-field>
-        <input matInput placeholder="" [(ngModel)]="selectedOptionsArray[i]" />
-      </mat-form-field>
+      <input matInput placeholder="" [(ngModel)]="selectedOptionsArray[i]" />
+    </mat-form-field>
   </div>
-  <button mat-stroked-button color="primary" (click)="submitOptions()">Submit</button>
+  <button mat-stroked-button color="primary" (click)="submitOptions()">
+    Submit
+  </button>
 </div>
