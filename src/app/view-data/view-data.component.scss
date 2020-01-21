@@ -1,0 +1,31 @@
+h1 {
+  text-align: center;
+  background-color: rgba(29, 34, 170, 0.878);
+  padding-bottom: 20px;
+  padding-top: 20px;
+  color: rgb(226, 223, 223);
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-weight: bolder;
+  text-shadow: 4px 3px #060139;
+  font-size: 375%;
+  margin-top: -10px;
+  margin-right: -8px;
+  margin-left: -8px;
+}
+
+body {
+  background-color:  rgb(226, 223, 223) ;
+}
+
+.center {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: normal;
+  font-size: medium;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bold {
+  font-weight: bold;
+}
