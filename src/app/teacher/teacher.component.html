@@ -1,9 +1,12 @@
+<body>
+<h1>Rank Choice Voting</h1>
 <mat-form-field class="name">
   <input matInput placeholder="Survey Name" [(ngModel)]="surveyName">
 </mat-form-field>
 <div class="center">
   <mat-form-field>
-    <mat-select [(value)]="selectedOption" name="first">
+    <mat-label>Number of Options</mat-label>
+   <mat-select [(value)]="selectedOption" name="first">
          <mat-option *ngFor = "let option of options; let i = index"
           [(value)]="option.name"
           (click)="updateOptions(option.name)">
@@ -21,3 +24,7 @@
   <div class="center">
     <button mat-stroked-button color="primary" (click)="submitOptions()">Submit</button>
   </div>
+  <button class="center"  (click)="refresh" *ngIf="hasSubmitted">Thank You For Submitting
+    Click Here!
+  </button>
+</body>

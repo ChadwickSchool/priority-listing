@@ -10,6 +10,7 @@ export class TeacherComponent implements OnInit {
   selectedOption: string;
   selectedOptionsArray: Array<string>;
   surveyName: string;
+  hasSubmitted: boolean;
 
   options = [
     {name: '2'},
@@ -30,7 +31,7 @@ export class TeacherComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.hasSubmitted = false;
   }
 
   updateOptions(name: string) {
@@ -39,8 +40,11 @@ export class TeacherComponent implements OnInit {
     console.log(this.selectedOption, this.selectedOptionsArray);
     // this.options.length = this.options.value;
   }
+  refresh() {
 
+  }
   submitOptions() {
+    this.hasSubmitted = true;
     console.log('name: ' + this.surveyName);
     console.log('Selected Array', this.selectedOptionsArray);
     for (let i = 0; i < this.selectedOptionsArray.length; i++) {
