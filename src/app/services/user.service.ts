@@ -1,21 +1,21 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   AngularFirestoreCollection,
   AngularFirestore
-} from "@angular/fire/firestore";
-import { User } from "../shared/models/user.model";
-import { Observable } from "rxjs";
-import { tap, take } from "rxjs/operators";
+} from '@angular/fire/firestore';
+import { User } from '../shared/models/user.model';
+import { Observable } from 'rxjs';
+import { tap, take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class UserService {
   usersRef: AngularFirestoreCollection<User>;
   users: Observable<User[]>;
   // admin: boolean;
   constructor(private afs: AngularFirestore) {
-    this.usersRef = this.afs.collection<User>("users");
+    this.usersRef = this.afs.collection<User>('users');
     this.users = this.usersRef.valueChanges();
   }
 

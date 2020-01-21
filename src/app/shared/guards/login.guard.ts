@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { CanActivate, Router, CanActivateChild } from "@angular/router";
-import { Observable } from "rxjs";
-import { AuthService } from "src/app/services/auth.service";
-import { take, map, tap } from "rxjs/operators";
-import { UserService } from "src/app/services/user.service";
+import { Injectable } from '@angular/core';
+import { CanActivate, Router, CanActivateChild } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { take, map, tap } from 'rxjs/operators';
+import { UserService } from 'src/app/services/user.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class LoginGuard implements CanActivate {
   constructor(
@@ -21,7 +21,7 @@ export class LoginGuard implements CanActivate {
     const id = await firebaseUser.getIdToken();
 
     if (!loggedIn) {
-      this.router.navigate([""]);
+      this.router.navigate(['']);
     }
     return loggedIn;
   }

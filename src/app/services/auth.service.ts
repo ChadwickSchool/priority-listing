@@ -1,19 +1,19 @@
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from '../shared/models/user.model'; // optional
 
-import { auth } from "firebase/app";
-import { AngularFireAuth } from "@angular/fire/auth";
+import { auth } from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/auth';
 import {
   AngularFirestore,
   AngularFirestoreDocument
-} from "@angular/fire/firestore";
+} from '@angular/fire/firestore';
 
-import { Observable, of } from "rxjs";
-import { switchMap, first, map, take } from "rxjs/operators";
+import { Observable, of } from 'rxjs';
+import { switchMap, first, map, take } from 'rxjs/operators';
 // import UserClass from "../shared/models/user";
-import { User } from "../shared/models/user.model";
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   user$: Observable<User>;
   userID: string;
