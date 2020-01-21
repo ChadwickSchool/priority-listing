@@ -1,20 +1,25 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { StudentComponent } from './student/student.component';
-import { TeacherComponent } from './teacher/teacher.component';
-import { ViewDataComponent } from './view-data/view-data.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { StudentComponent } from "./student/student.component";
+import { TeacherComponent } from "./teacher/teacher.component";
+import { ViewDataComponent } from "./view-data/view-data.component";
+import { LoginComponent } from "./login/login.component";
 
 const routes: Routes = [
   {
-    path: 'student',
-    component: StudentComponent,
+    path: "",
+    component: LoginComponent
   },
   {
-    path: 'teacher',
-    component: TeacherComponent,
+    path: "student",
+    component: StudentComponent
   },
   {
-    path: 'view-data',
+    path: "teacher",
+    component: TeacherComponent
+  },
+  {
+    path: "view-data",
     component: ViewDataComponent
   }
 ];
