@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StudentComponent } from './student/student.component';
 import { TeacherComponent } from './teacher/teacher.component';
 import { ViewDataComponent } from './view-data/view-data.component';
+import { ThankYouComponent } from './thank-you/thank-you.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'view-data',
     component: ViewDataComponent
+  },
+  {
+    path: 'thank-you',
+    component: ThankYouComponent
   }
 ];
 

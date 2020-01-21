@@ -22,9 +22,6 @@
       </mat-form-field>
   </div>
   <div class="center">
-    <button mat-stroked-button color="primary" (click)="submitOptions()">Submit</button>
+    <button routerLink="/thank-you" mat-stroked-button color="primary" (click)="submitOptions()">Submit</button>
   </div>
-  <button class="center"  (click)="refresh" *ngIf="hasSubmitted">Thank You For Submitting
-    Click Here!
-  </button>
 </body>
