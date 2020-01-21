@@ -4,6 +4,7 @@ import { StudentComponent } from './student/student.component';
 import { TeacherComponent } from './teacher/teacher.component';
 import { ViewDataComponent } from './view-data/view-data.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
+import { StudentThankYouComponent } from './student-thank-you/student-thank-you.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'thank-you',
     component: ThankYouComponent
+  },
+  {
+    path: 'student-thank-you',
+    component: StudentThankYouComponent
   }
 ];
 
