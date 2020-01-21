@@ -1,4 +1,16 @@
 <h1>Results</h1>
-<p>Winner</p>
-<p>{{solution}}</p>
-<button mat-button (click)="fetchAndSolve()">get the options for everything</button>
+<p>The ranked choice winner is {{solution}} {{solutionPercent}}</p>
+<p>The ranked choice runnerup is {{secondPlace}} {{secondPlacePercent}}</p>
+<p>FPTP {{normalVoting}}</p>
+<mat-form-field>
+  <mat-label>Select Survey</mat-label>
+    <mat-select [(value)]="surveyName">
+            <mat-option *ngFor = "let name of surveyNames; let i = index"
+            [(value)] = "name"
+            (click)="setName(name)">
+              {{name}}
+            </mat-option>
+    </mat-select>
+</mat-form-field>
+<br>
+<button mat-button (click)="fetchAndSolve()">Get the winner</button>

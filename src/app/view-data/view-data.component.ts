@@ -20,10 +20,17 @@ import { Options } from '../shared/models/options.model';
 export class ViewDataComponent implements OnInit {
   winner: string;
   solution: string;
+  solutionPercent: string;
+  secondPlace: string;
+  secondPlacePercent: string;
+  normalVoting;
   dataLeft: string[][]; // List of student choices. (List of list of strings)
   candidatesLeft: string[]; // List of option names. (List of strings)
   choicesRef: AngularFirestoreCollection<Choice>;
   choices: Observable<Choice[]>;
+  surveyNames: Array<string>;
+  options: Options[];
+  surveyName = '';
   newArray;
   constructor(
     private getOptionsService: GetOptionsService,
@@ -33,10 +40,14 @@ export class ViewDataComponent implements OnInit {
     this.choicesRef = afs.collection<Choice>('choices');
     this.choices = this.choicesRef.valueChanges();
     this.solution = '';
+    this.surveyNames = [];
+    this.secondPlace = '';
+    this.options = [];
     // this.rankVotesService = new RankVotesService(candidates, data);
   }
 
   ngOnInit() {
+    this.showOptions();
     // this.rankVotesService = new RankVotesService(firebasedata)
     // this.winner = this.rankVotesService.solve();
   }
@@ -44,15 +55,49 @@ export class ViewDataComponent implements OnInit {
   async fetchAndSolve() {
     await this.TeacherOptions();
     await this.StudentChoices();
+    this.normalVoting = this.calculateNormalVoting();
     this.solution = this.solve();
-
+    console.log(this.solution);
     return this.solution;
+  }
+
+  calculateNormalVoting() {
+    let roundScores = this.findRoundScores();
+
+    let sum = 0;
+
+    for (let id in roundScores) {
+      sum += roundScores[id];
+    }
+
+    let percents = {};
+
+    for (let id in roundScores) {
+      percents[id] = roundScores[id] / sum;
+    }
+
+    for (let id in percents) {
+      percents[id] = (percents[id] * 100).toPrecision(2) + '%';
+    }
+
+    let output = ""
+
+    for (let id in percents) {
+      output += id + ' ' + percents[id] + ', ';
+    }
+
+    return output;
+  }
+
+  async showOptions() {
+    this.options = await this.getOptionsService.getOptions().pipe(take(1)).toPromise();
+    this.showSurveyNames();
   }
 
   async TeacherOptions() {
     this.candidatesLeft = await new Promise((resolve, reject) => {
 
-      this.getOptionsService.getOptions().subscribe((options) => {
+      this.getOptionsService.getOptionsByName(this.surveyName).subscribe((options) => {
         resolve(options[Object.keys(options)[0]].tasks);
       });
 
@@ -61,7 +106,7 @@ export class ViewDataComponent implements OnInit {
 
   async StudentChoices() {
     this.dataLeft = await new Promise((resolve, reject) => {
-      this.getAllChoicesService.getStudentResponses().subscribe((studentChoices) => {
+      this.getAllChoicesService.getStudentResponsesByName(this.surveyName).subscribe((studentChoices) => {
 
         resolve(
           studentChoices.map((element) => {
@@ -70,7 +115,17 @@ export class ViewDataComponent implements OnInit {
         );
       });
     });
+    console.log('data:' + this.dataLeft);
+  }
 
+  showSurveyNames() {
+    this.options.forEach(element => {
+      this.surveyNames.push(element.surveyName);
+    });
+  }
+
+  setName(name: string) {
+    this.surveyName = name;
   }
 
   findRoundScores() {
@@ -123,12 +178,26 @@ export class ViewDataComponent implements OnInit {
     }
 
     let roundScores = this.findRoundScores();
-
     // Compare the final two candidates and return the better one.
-    if (roundScores[this.candidatesLeft[0]] > roundScores[this.candidatesLeft[1]]) {
+    if ((roundScores[this.candidatesLeft[0]] || 0) > (roundScores[this.candidatesLeft[1]] || 0)) {
+      this.secondPlace = this.candidatesLeft[1];
+      this.calculateRankedPercents(roundScores[this.candidatesLeft[0]], roundScores[this.candidatesLeft[1]]);
       return this.candidatesLeft[0];
     } else {
+      this.secondPlace = this.candidatesLeft[0];
+      this.calculateRankedPercents(roundScores[this.candidatesLeft[1]], roundScores[this.candidatesLeft[0]]);
       return this.candidatesLeft[1];
+    }
+  }
+
+  calculateRankedPercents(votesWinner, votesLoser) {
+    const total = votesWinner + votesLoser;
+    if (votesWinner && votesLoser) {
+    this.secondPlacePercent = ((votesLoser / total) * 100).toString() + '%';
+    this.solutionPercent = ((votesWinner / total) * 100).toString() + '%';
+    } else {
+      this.solutionPercent = '100%';
+      this.secondPlacePercent = '0%';
     }
   }
 }

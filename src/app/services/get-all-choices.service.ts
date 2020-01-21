@@ -24,6 +24,12 @@ export class GetAllChoicesService {
     return this.choices;
   }
 
+  getStudentResponsesByName(name: string): Observable<Choice[]> {
+    const query = this.afs.collection<Choice>('choices', ref => ref
+      .where('surveyName', '==', name));
+    return query.valueChanges();
+  }
+
   getTeacherOptions() {
     return this.getOptionsService.getOptions();
   }
