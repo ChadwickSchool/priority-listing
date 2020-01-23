@@ -57,7 +57,6 @@ export class ViewDataComponent implements OnInit {
     await this.StudentChoices();
     this.normalVoting = this.calculateNormalVoting();
     this.solution = this.solve();
-    console.log(this.solution);
     return this.solution;
   }
 
@@ -77,7 +76,7 @@ export class ViewDataComponent implements OnInit {
     }
 
     for (let id in percents) {
-      percents[id] = (percents[id] * 100).toPrecision(2) + '%';
+      percents[id] = (percents[id] * 100).toFixed(0) + '%';
     }
 
     let output = ""
@@ -107,7 +106,6 @@ export class ViewDataComponent implements OnInit {
   async StudentChoices() {
     this.dataLeft = await new Promise((resolve, reject) => {
       this.getAllChoicesService.getStudentResponsesByName(this.surveyName).subscribe((studentChoices) => {
-
         resolve(
           studentChoices.map((element) => {
             return element.ranking;
@@ -115,7 +113,6 @@ export class ViewDataComponent implements OnInit {
         );
       });
     });
-    console.log('data:' + this.dataLeft);
   }
 
   showSurveyNames() {
@@ -131,15 +128,17 @@ export class ViewDataComponent implements OnInit {
   findRoundScores() {
     let roundScores = {};
 
+    for (let i = 0; i < this.dataLeft.length; i++) {
+      for (let j = 0; j < this.dataLeft[i].length; j++) {
+        if (roundScores[this.dataLeft[i][j]] === undefined) {
+          roundScores[this.dataLeft[i][j]] = 0;
+        }
+      }
+    }
     // Give a score based on first-place votes.
     for (let i = 0; i < this.dataLeft.length; i++) {
-      if (!roundScores[this.dataLeft[i][0]]) {
-        roundScores[this.dataLeft[i][0]] = 0;
-      }
-
       roundScores[this.dataLeft[i][0]]++;
     }
-
     return roundScores;
   }
 
@@ -193,8 +192,8 @@ export class ViewDataComponent implements OnInit {
   calculateRankedPercents(votesWinner, votesLoser) {
     const total = votesWinner + votesLoser;
     if (votesWinner && votesLoser) {
-    this.secondPlacePercent = ((votesLoser / total) * 100).toString() + '%';
-    this.solutionPercent = ((votesWinner / total) * 100).toString() + '%';
+    this.secondPlacePercent = ((votesLoser / total) * 100).toFixed(0) + '%';
+    this.solutionPercent = ((votesWinner / total) * 100).toFixed(0) + '%';
     } else {
       this.solutionPercent = '100%';
       this.secondPlacePercent = '0%';
