@@ -14,10 +14,12 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { ViewDataComponent } from './view-data/view-data.component';
+import { ThankYouComponent } from './thank-you/thank-you.component';
+import { StudentThankYouComponent } from './student-thank-you/student-thank-you.component';
 
 
 @NgModule({
-  declarations: [AppComponent, TeacherComponent, StudentComponent, ViewDataComponent],
+  declarations: [AppComponent, TeacherComponent, StudentComponent, ViewDataComponent,  ThankYouComponent, StudentThankYouComponent],
   imports: [
     BrowserModule,
     FormsModule,
