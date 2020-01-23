@@ -1,4 +1,5 @@
 <body>
+  <img src="../../assets/images/WickLogo.png" class="float-image">
   <h1>Voting</h1>
   <div class="center">
   <div class="example-container">
@@ -13,7 +14,7 @@
                 </mat-option>
         </mat-select>
     </mat-form-field>
-  <div class="grid">
+  <div *ngIf="showChoices" class="grid">
    <div>
      <h2>Choices</h2>
       <div

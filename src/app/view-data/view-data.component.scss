@@ -1,6 +1,6 @@
 h1 {
   text-align: center;
-  background-color: rgba(29, 34, 170, 0.878);
+  background-color:  rgba(9, 39, 63, 0.878);
   padding-bottom: 20px;
   padding-top: 20px;
   color: rgb(226, 223, 223);
@@ -11,6 +11,13 @@ h1 {
   margin-top: -10px;
   margin-right: -8px;
   margin-left: -8px;
+}
+
+.float-image {
+  height: 87px;
+  left: 16px;
+  top: 9px;
+  position: absolute;
 }
 
 body {

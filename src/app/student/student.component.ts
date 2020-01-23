@@ -19,6 +19,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./student.component.scss']
 })
 export class StudentComponent implements OnInit {
+  showChoices: boolean;
 
   todo = ['Loading...'];
 
@@ -40,6 +41,7 @@ export class StudentComponent implements OnInit {
 
   ngOnInit(): void {
     this.showOptions();
+    this.showChoices = false;
     // this.getOptionsService.getOptionsByName(this.surveyName).subscribe(options => {
     //   this.todo = options[0].tasks;
 
@@ -55,6 +57,7 @@ export class StudentComponent implements OnInit {
   }
 
   showTasks(name: string) {
+    this.showChoices = true;
     this.surveyName = name;
     console.log(this.surveyName);
     this.getOptionsService.getOptionsByName(this.surveyName).subscribe(options => {
