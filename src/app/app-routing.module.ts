@@ -8,6 +8,10 @@ import { StudentThankYouComponent } from './student-thank-you/student-thank-you.
 
 const routes: Routes = [
   {
+    path: '',
+    component: StudentComponent
+  },
+  {
     path: 'student',
     component: StudentComponent,
   },
