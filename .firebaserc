@@ -7,5 +7,8 @@
         ]
       }
     }
+  },
+  "projects": {
+    "default": "drag-and-drop-ranking-system"
   }
 }

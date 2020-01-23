@@ -19,7 +19,7 @@ import { StudentThankYouComponent } from './student-thank-you/student-thank-you.
 
 
 @NgModule({
-  declarations: [AppComponent, TeacherComponent, StudentComponent, ViewDataComponent,  ThankYouComponent, StudentThankYouComponent],
+  declarations: [AppComponent, TeacherComponent, StudentComponent, ViewDataComponent, ThankYouComponent, StudentThankYouComponent],
   imports: [
     BrowserModule,
     FormsModule,
