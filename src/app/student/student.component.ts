@@ -20,7 +20,7 @@ import { take } from 'rxjs/operators';
 })
 export class StudentComponent implements OnInit {
 
-  todo = ['Loading...'];
+  todo = [];
 
   assignedChoices = [];
 
