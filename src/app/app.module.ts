@@ -1,20 +1,21 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { MaterialModule } from "./shared/material.module";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { environment } from "src/environments/environment";
-import { TeacherComponent } from "./teacher/teacher.component";
-import { StudentComponent } from "./student/student.component";
-import { AppComponent } from "./app.component";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MaterialModule } from './shared/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from 'src/environments/environment';
+import { TeacherComponent } from './teacher/teacher.component';
+import { StudentComponent } from './student/student.component';
+import { AppComponent } from './app.component';
 
 // firebase imports
-import { AngularFireModule } from "@angular/fire";
-import { AngularFirestoreModule } from "@angular/fire/firestore";
-import { AngularFireAuthModule } from "@angular/fire/auth";
-import { AppRoutingModule } from "./app-routing.module";
-import { ViewDataComponent } from "./view-data/view-data.component";
-import { LoginComponent } from "./login/login.component";
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AppRoutingModule } from './app-routing.module';
+import { ViewDataComponent } from './view-data/view-data.component';
+import { LoginComponent } from './login/login.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LoginComponent } from "./login/login.component";
     TeacherComponent,
     StudentComponent,
     ViewDataComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
