@@ -11,6 +11,7 @@ import {
 } from '@angular/fire/firestore';
 import { Choice } from '../shared/models/choice.model';
 import { Options } from '../shared/models/options.model';
+import { StudestudentService } from '../services/studestudent.service';
 
 @Component({
   selector: 'app-view-data',
@@ -35,7 +36,8 @@ export class ViewDataComponent implements OnInit {
   constructor(
     private getOptionsService: GetOptionsService,
     private afs: AngularFirestore,
-    private getAllChoicesService: GetAllChoicesService
+    private getAllChoicesService: GetAllChoicesService,
+    private studentService: StudestudentService
   ) {
     this.choicesRef = afs.collection<Choice>('choices');
     this.choices = this.choicesRef.valueChanges();
@@ -55,9 +57,14 @@ export class ViewDataComponent implements OnInit {
   async fetchAndSolve() {
     await this.TeacherOptions();
     await this.StudentChoices();
+    await this.listUsers();
     this.normalVoting = this.calculateNormalVoting();
     this.solution = this.solve();
     return this.solution;
+  }
+
+  listUsers() {
+
   }
 
   calculateNormalVoting() {
