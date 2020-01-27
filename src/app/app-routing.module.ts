@@ -5,19 +5,20 @@ import { TeacherComponent } from './teacher/teacher.component';
 import { ViewDataComponent } from './view-data/view-data.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { StudentThankYouComponent } from './student-thank-you/student-thank-you.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: StudentComponent
+    component: LoginComponent
   },
   {
     path: 'student',
-    component: StudentComponent,
+    component: StudentComponent
   },
   {
     path: 'teacher',
-    component: TeacherComponent,
+    component: TeacherComponent
   },
   {
     path: 'view-data',
