@@ -26,6 +26,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     StudentComponent,
     ViewDataComponent,
     LoginComponent,
+    ThankYouComponent,
+    StudentThankYouComponent,
     NavbarComponent
   ],
   imports: [
