@@ -21,7 +21,12 @@ h1 {
 }
 
 body {
-  background-color:  rgb(226, 223, 223) ;
+  padding-top: -20px;
+  background-color:  rgb(226, 223, 223);
+}
+
+.hidden {
+  overflow: hidden;
 }
 
 .center {
@@ -31,6 +36,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color:  rgb(226, 223, 223);
+  padding-top: -10px;
 }
 
 .bold {

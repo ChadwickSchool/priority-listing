@@ -6,6 +6,13 @@
   margin-top: 10px;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:  rgb(226, 223, 223) ;
+}
+
 #sign-in-button {
   display: flex;
   flex-direction: row;
