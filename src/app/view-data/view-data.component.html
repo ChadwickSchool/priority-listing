@@ -18,4 +18,9 @@
   <div class="center">
   <button mat-stroked-button color="primary" (click)="fetchAndSolve()">Get the winner</button>
   </div>
+  <div>
+    <li *ngFor="let student of students">
+      {{student.name}}
+    </li>
+  </div>
 </body>

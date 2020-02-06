@@ -9,6 +9,10 @@ import { SaveChoiceService } from '../services/save-choice.service';
 import { GetOptionsService } from '../services/get-options.service';
 import { Options } from '../shared/models/options.model';
 import { take } from 'rxjs/operators';
+import { SurveyVotersService } from '../services/survey-voters.service';
+import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
+import { User } from '../shared/models/user.model';
 
 /**
  * @title Drag&Drop connected sorting
@@ -31,10 +35,20 @@ export class StudentComponent implements OnInit {
 
   surveyNames: Array<string>;
 
+  userId: string;
+
+  currentUser: User;
+
   surveyName = '';
 
   result: Array<string> = [];
-  constructor(private saveChoiceService: SaveChoiceService, private getOptionsService: GetOptionsService) {
+  constructor(
+    private saveChoiceService: SaveChoiceService,
+    private getOptionsService: GetOptionsService,
+    private surveyVotersService: SurveyVotersService,
+    private userService: UserService,
+    private authService: AuthService) {
+    this.userId = '';
     this.options = [];
     this.surveyNames = [];
   }
@@ -42,6 +56,7 @@ export class StudentComponent implements OnInit {
   ngOnInit(): void {
     this.showOptions();
     this.showChoices = false;
+    this.setUpUser();
     // this.getOptionsService.getOptionsByName(this.surveyName).subscribe(options => {
     //   this.todo = options[0].tasks;
 
@@ -49,6 +64,11 @@ export class StudentComponent implements OnInit {
     //     this.choices.push([]);
     //   }
     // });
+  }
+
+  async setUpUser() {
+    this.userId = this.authService.getFirebaseUserID();
+    this.currentUser = await this.userService.getCurrentUser(this.userId);
   }
 
   async showOptions() {
@@ -59,9 +79,7 @@ export class StudentComponent implements OnInit {
   showTasks(name: string) {
     this.showChoices = true;
     this.surveyName = name;
-    console.log(this.surveyName);
     this.getOptionsService.getOptionsByName(this.surveyName).subscribe(options => {
-      console.log(options[0]);
       this.todo = options[0].tasks;
       this.choices = [];
       for (let todo of this.todo) {
@@ -97,15 +115,14 @@ export class StudentComponent implements OnInit {
   }
 
   saveChoiceOrder(event: CdkDragDrop<Array<string>>) {
-    console.log(this.choices);
     for (let i = 0; i < this.choices.length; i++) {
       this.result[i] = this.choices[i][0];
     }
     this.saveChoiceService.addChoices(this.result, this.surveyName);
+    this.surveyVotersService.addSurveyVoters(this.surveyName, this.currentUser);
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    console.log(event);
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,

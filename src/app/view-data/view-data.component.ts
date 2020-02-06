@@ -11,7 +11,10 @@ import {
 } from '@angular/fire/firestore';
 import { Choice } from '../shared/models/choice.model';
 import { Options } from '../shared/models/options.model';
-import { StudestudentService } from '../services/studestudent.service';
+import { StudentService } from '../services/student.service';
+import { User } from '../shared/models/user.model';
+import { SurveyVotersService } from '../services/survey-voters.service';
+import { SurveyVoters } from '../shared/models/surveyVoters.model';
 
 @Component({
   selector: 'app-view-data',
@@ -23,6 +26,9 @@ export class ViewDataComponent implements OnInit {
   solution: string;
   solutionPercent: string;
   secondPlace: string;
+  students$: Observable<Array<SurveyVoters>>;
+  surveyVoters: Array<SurveyVoters>;
+  students: Array<User>;
   secondPlacePercent: string;
   normalVoting;
   dataLeft: string[][]; // List of student choices. (List of list of strings)
@@ -36,12 +42,13 @@ export class ViewDataComponent implements OnInit {
   constructor(
     private getOptionsService: GetOptionsService,
     private afs: AngularFirestore,
-    private getAllChoicesService: GetAllChoicesService,
-    private studentService: StudestudentService
+    private surveyVotersService: SurveyVotersService,
+    private getAllChoicesService: GetAllChoicesService
   ) {
     this.choicesRef = afs.collection<Choice>('choices');
     this.choices = this.choicesRef.valueChanges();
     this.solution = '';
+    this.students = [];
     this.surveyNames = [];
     this.secondPlace = '';
     this.options = [];
@@ -57,14 +64,18 @@ export class ViewDataComponent implements OnInit {
   async fetchAndSolve() {
     await this.TeacherOptions();
     await this.StudentChoices();
-    await this.listUsers();
+    this.students$ = this.surveyVotersService.getSurveyVoters(this.surveyName);
+
+    this.students$.subscribe((voters) => {
+      this.students = [];
+
+      voters.forEach((voter) => {
+        this.students = this.students.concat(voter.students);
+      });
+    });
+
     this.normalVoting = this.calculateNormalVoting();
     this.solution = this.solve();
-    return this.solution;
-  }
-
-  listUsers() {
-
   }
 
   calculateNormalVoting() {
