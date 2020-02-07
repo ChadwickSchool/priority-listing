@@ -6,6 +6,8 @@ import { ViewDataComponent } from './view-data/view-data.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { StudentThankYouComponent } from './student-thank-you/student-thank-you.component';
 import { LoginComponent } from './login/login.component';
+import { LoginGuard } from './shared/guards/login.guard';
+import { AdminGuard } from './shared/guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -14,23 +16,28 @@ const routes: Routes = [
   },
   {
     path: 'student',
-    component: StudentComponent
+    component: StudentComponent,
+    canActivate: [LoginGuard]
   },
   {
     path: 'teacher',
-    component: TeacherComponent
+    component: TeacherComponent,
+    canActivate: [LoginGuard, AdminGuard]
   },
   {
     path: 'view-data',
-    component: ViewDataComponent
+    component: ViewDataComponent,
+    canActivate: [LoginGuard, AdminGuard]
   },
   {
     path: 'thank-you',
-    component: ThankYouComponent
+    component: ThankYouComponent,
+    canActivate: [LoginGuard, AdminGuard]
   },
   {
     path: 'student-thank-you',
-    component: StudentThankYouComponent
+    component: StudentThankYouComponent,
+    canActivate: [LoginGuard]
   }
 ];
 
