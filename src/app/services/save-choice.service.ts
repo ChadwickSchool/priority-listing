@@ -17,7 +17,6 @@ export class SaveChoiceService {
   constructor(private afs: AngularFirestore) {
     this.choicesRef = afs.collection<Choice>('choices');
     this.choices$ = this.choicesRef.valueChanges();
-    console.log('created service');
   }
 
   getChoices(): Observable<Choice[]> {

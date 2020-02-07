@@ -4,11 +4,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../shared/models/user.model';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class StudestudentService {
+export class StudentService {
   studentsRef: AngularFirestoreCollection<User>;
   students: Observable<User[]>;
   constructor(private afs: AngularFirestore) {

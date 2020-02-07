@@ -37,7 +37,6 @@ export class TeacherComponent implements OnInit {
   updateOptions(name: string) {
     this.selectedOption = name;
     this.selectedOptionsArray = new Array(parseInt(this.selectedOption, 10));
-    console.log(this.selectedOption, this.selectedOptionsArray);
     // this.options.length = this.options.value;
   }
   refresh() {
@@ -45,8 +44,6 @@ export class TeacherComponent implements OnInit {
   }
   submitOptions() {
     this.hasSubmitted = true;
-    console.log('name: ' + this.surveyName);
-    console.log('Selected Array', this.selectedOptionsArray);
     for (let i = 0; i < this.selectedOptionsArray.length; i++) {
       /*
       * if option is not undefined
@@ -55,10 +52,8 @@ export class TeacherComponent implements OnInit {
 
       this.result[i] = this.selectedOptionsArray[i];
     }
-    console.log('result is', this.result);
 
     this.saveOptionService.addOptions(this.result, this.surveyName);
-    console.log('result is after service called', this.result);
   }
 
   indexTracker(index: number, value: any) {

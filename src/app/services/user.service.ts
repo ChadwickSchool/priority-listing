@@ -35,9 +35,11 @@ export class UserService {
   }
 
   async getCurrentUser(idToken: string): Promise<User> {
-    return await this.usersRef
+    const query = await this.usersRef
       .doc<User>(idToken)
-      .valueChanges()
+      .valueChanges().pipe(take(1))
       .toPromise();
+
+    return query;
   }
 }

@@ -25,13 +25,11 @@ export class SaveOptionsService {
 
   addOptions(options: Array<string>, surveyName: string) {
     const id = this.afs.createId();
-    console.log('options', options);
     const firebaseOptions = [];
 
     for (const optionsArray of options) {
       firebaseOptions.push(optionsArray);
     }
-    console.log('firebaseOptions', firebaseOptions);
     const newRanking = new OptionsClass(
       id,
       surveyName,
