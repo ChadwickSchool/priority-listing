@@ -12,7 +12,14 @@ export class AdminGuard implements CanActivate {
 
   async canActivate(): Promise<boolean> {
     const firebaseUser = await this.authService.getAuthenticatedUser();
-    const id = await firebaseUser.getIdToken();
-    return true;
+    const loggedIn = !!firebaseUser;
+    const id = this.authService.userID;
+    console.log(id);
+    if (!loggedIn) {
+      console.log('not logged in');
+      this.router.navigate(['']);
+    } else {
+      return this.userService.isAdmin(id);
+    }
   }
 }
