@@ -39,7 +39,6 @@ export class UserService {
       .doc<User>(idToken)
       .valueChanges().pipe(take(1))
       .toPromise();
-
     return query;
   }
 }
