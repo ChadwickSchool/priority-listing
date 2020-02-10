@@ -18,8 +18,11 @@
   <div class="center">
   <button mat-stroked-button color="primary" (click)="fetchAndSolve()">Get the winner</button>
   </div>
-  <div>
+  <div class="center2">
+    <p><br>
+      Students who have already submitted their votes:
+    </p>
     <li *ngFor="let student of students">
-      {{student.name}}
+      {{student.name}} <br>
     </li>
   </div>
