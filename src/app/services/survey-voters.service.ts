@@ -36,7 +36,6 @@ export class SurveyVotersService {
       } else {
         id = this.afs.createId();
         this.users.push(user);
-
         const newEntry = new SurveyVotersClass(
           id as string,
           surveyName,
@@ -58,7 +57,7 @@ export class SurveyVotersService {
   getSurveyRef(surveyName: string) {
     return new Promise((resolve, reject) => {
       this.afs.collection<SurveyVoters>('surveyVoters', ref => ref.where('surveyName', '==', surveyName)).valueChanges().subscribe(survey => {
-        if (survey) {
+        if (survey.length > 0) {
           resolve(survey[0].docId);
         } else {
           resolve(undefined);
