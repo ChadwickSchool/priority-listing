@@ -1,27 +1,45 @@
 <body>
-<img src="../../assets/images/WickLogo.png" class="float-image">
-<mat-form-field class="name">
-  <input matInput placeholder="Survey Name" [(ngModel)]="surveyName">
-</mat-form-field>
-<div class="center">
-  <mat-form-field>
-    <mat-label>Number of Options</mat-label>
-   <mat-select [(value)]="selectedOption" name="first">
-         <mat-option *ngFor = "let option of options; let i = index"
+  <img src="../../assets/images/WickLogo.png" class="float-image" />
+  <h1>Make A Survey</h1>
+
+  <mat-form-field class="name">
+    <input matInput placeholder="Survey Name" [(ngModel)]="surveyName" />
+  </mat-form-field>
+  <div class="center">
+    <mat-form-field>
+      <mat-label>Number of Options</mat-label>
+      <mat-select [(value)]="selectedOption" name="first">
+        <mat-option
+          *ngFor="let option of options; let i = index"
           [(value)]="option.name"
-          (click)="updateOptions(option.name)">
-            {{option.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  <div class="center" *ngFor="let optionList of selectedOptionsArray; let i = index; trackBy:indexTracker">
-    <h2 id="option-form">Option {{i+1}}:</h2>
+          (click)="updateOptions(option.name)"
+        >
+          {{ option.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div
+    class="center"
+    *ngFor="
+      let optionList of selectedOptionsArray;
+      let i = index;
+      trackBy: indexTracker
+    "
+  >
+    <h2 id="option-form">Option {{ i + 1 }}:</h2>
     <mat-form-field id="option-form-content">
-        <input matInput placeholder="" [(ngModel)]="selectedOptionsArray[i]" />
-      </mat-form-field>
+      <input matInput placeholder="" [(ngModel)]="selectedOptionsArray[i]" />
+    </mat-form-field>
   </div>
   <div class="center">
-    <button routerLink="/thank-you" mat-stroked-button color="primary" (click)="submitOptions()">Submit</button>
+    <button
+      routerLink="/thank-you"
+      mat-stroked-button
+      color="primary"
+      (click)="submitOptions()"
+    >
+      Submit
+    </button>
   </div>
 </body>
