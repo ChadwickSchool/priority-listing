@@ -40,7 +40,8 @@
        <div class="example-box" *ngFor="let item of choices[i]" cdkDrag>{{item}}</div>
        </div>
     </div>
-      <button mat-stroked-button color="primary" (click)="saveChoiceOrder()" routerLink="/student-thank-you">Submit</button>
+      <p id='voted' [hidden]='!voted'>You've already voted for this survey</p>
+      <button mat-stroked-button [disabled]='voted' color="primary" (click)="saveChoiceOrder()" routerLink="/student-thank-you">Submit</button>
     </div>
     </div>
     <div class="center"></div>

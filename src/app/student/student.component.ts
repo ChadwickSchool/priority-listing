@@ -13,6 +13,7 @@ import { SurveyVotersService } from '../services/survey-voters.service';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { User } from '../shared/models/user.model';
+import { StudentService } from '../services/student.service';
 
 /**
  * @title Drag&Drop connected sorting
@@ -40,6 +41,7 @@ export class StudentComponent implements OnInit {
   currentUser: User;
 
   surveyName = '';
+  voted: boolean;
 
   result: Array<string> = [];
   constructor(
@@ -47,7 +49,9 @@ export class StudentComponent implements OnInit {
     private getOptionsService: GetOptionsService,
     private surveyVotersService: SurveyVotersService,
     private userService: UserService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private studentService: StudentService) {
+    this.voted = false;
     this.userId = '';
     this.options = [];
     this.surveyNames = [];
@@ -76,6 +80,12 @@ export class StudentComponent implements OnInit {
     this.showSurveyNames();
   }
 
+  async hasVoted() {
+    console.log(this.studentService.hasVoted(this.surveyName, this.userId));
+    this.voted = await this.studentService.hasVoted(this.surveyName, this.userId);
+    console.log(this.voted);
+  }
+
   showTasks(name: string) {
     this.showChoices = true;
     this.surveyName = name;
@@ -86,6 +96,7 @@ export class StudentComponent implements OnInit {
         this.choices.push([]);
       }
     });
+    this.hasVoted();
   }
 
   showSurveyNames() {
