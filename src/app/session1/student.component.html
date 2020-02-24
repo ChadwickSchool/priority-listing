@@ -1,0 +1,48 @@
+<body>
+  <div class="center">
+  <div class="example-container">
+   <div class="container">
+      <mat-form-field>
+        <mat-label>Select Survey</mat-label>
+          <mat-select [(value)]="surveyName">
+                 <mat-option *ngFor = "let name of surveyNames; let i = index"
+                [(value)] = "name"
+                (click)="showTasks(name)">
+                  {{name}}
+                </mat-option>
+        </mat-select>
+    </mat-form-field>
+  <div *ngIf="showChoices" class="grid">
+   <div>
+     <h2>Choices</h2>
+      <div
+        cdkDropList
+        id="todo"
+      [cdkDropListData]="todo"
+       [cdkDropListConnectedTo]="choiceIDs()"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+       <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+     </div>
+   </div>
+
+  <div class="example-container">
+    <div *ngFor="let choiceList of choices; let i = index">
+      <h2>Choice {{i + 1}}</h2>
+       <div
+       cdkDropList
+       #choices[i]List="cdkDropList"
+       [id]="'choice' + i"
+       [cdkDropListData]="choices[i]"
+        [cdkDropListConnectedTo]="choiceIDs()"
+       class="example-list"
+        (cdkDropListDropped)="drop($event)">
+       <div class="example-box" *ngFor="let item of choices[i]" cdkDrag>{{item}}</div>
+       </div>
+    </div>
+      <p id='voted' [hidden]='!voted'>You've already voted for this survey</p>
+      <button mat-stroked-button [disabled]='voted' color="primary" (click)="saveChoiceOrder()" routerLink="/session2">Submit</button>
+    </div>
+    </div>
+    <div class="center"></div>
+    </div>

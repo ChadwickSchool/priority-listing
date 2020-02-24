@@ -5,7 +5,8 @@ import { MaterialModule } from './shared/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from 'src/environments/environment';
 import { TeacherComponent } from './teacher/teacher.component';
-import { StudentComponent } from './student/student.component';
+import { StudentComponent } from './session1/student.component';
+import { StudentComponent2 } from './session2/student2.component';
 import { AppComponent } from './app.component';
 
 // firebase imports
@@ -24,6 +25,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     AppComponent,
     TeacherComponent,
     StudentComponent,
+    StudentComponent2,
     ViewDataComponent,
     LoginComponent,
     ThankYouComponent,

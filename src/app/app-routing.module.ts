@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { StudentComponent } from './student/student.component';
+import { StudentComponent } from './session1/student.component';
+import { StudentComponent2 } from './session2/student2.component'
 import { TeacherComponent } from './teacher/teacher.component';
 import { ViewDataComponent } from './view-data/view-data.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
@@ -15,10 +16,17 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'student',
+    path: 'session1',
     component: StudentComponent,
     canActivate: [LoginGuard]
   },
+
+{
+  path: 'session2',
+  component: StudentComponent2,
+  canActivate: [LoginGuard]
+
+},
   {
     path: 'teacher',
     component: TeacherComponent,
