@@ -1,28 +1,45 @@
 <body>
   <div class="hidden">
-  <img src="../../assets/images/WickLogo.png" class="float-image">
-    <p class="center">The ranked choice winner is&nbsp;<span class="bold">{{solution}} {{solutionPercent}}</span></p>
-    <p class="center">The ranked choice runnerup is&nbsp;<span class="bold">{{secondPlace}} {{secondPlacePercent}}</span></p>
-    <p class="center">The voting breakdown is: &nbsp;<span class="bold">{{normalVoting}}</span></p>
-  <mat-form-field class="center">
-    <mat-label>Select Survey</mat-label>
-     <mat-select [(value)]="surveyName">
-              <mat-option *ngFor = "let name of surveyNames; let i = index"
-              [(value)] = "name"
-              (click)="setName(name)">
-                {{name}}
-              </mat-option>
-     </mat-select>
-  </mat-form-field>
-  <br>
-  <div class="center">
-  <button mat-stroked-button color="primary" (click)="fetchAndSolve()">Get the winner</button>
-  </div>
-  <div class="center2">
-    <p><br>
-      Students who have already submitted their votes:
+    <img src="../../assets/images/WickLogo.png" class="float-image" />
+    <p class="center">
+      The ranked choice winner is&nbsp;<span class="bold"
+        >{{ solution }} {{ solutionPercent }}</span
+      >
     </p>
-    <li *ngFor="let student of students">
-      {{student.name}} <br>
-    </li>
+    <p class="center">
+      The ranked choice runnerup is&nbsp;<span class="bold"
+        >{{ secondPlace }} {{ secondPlacePercent }}</span
+      >
+    </p>
+    <p class="center">
+      The voting breakdown is: &nbsp;<span class="bold">{{
+        normalVoting
+      }}</span>
+    </p>
+    <mat-form-field class="center">
+      <mat-label>Select Survey</mat-label>
+      <mat-select [(value)]="surveyName">
+        <mat-option
+          *ngFor="let name of surveyNames; let i = index"
+          [(value)]="name"
+          (click)="setName(name)"
+        >
+          {{ name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <div class="center">
+      <button mat-raised-button color="primary" (click)="fetchAndSolve()">
+        Get the winner
+      </button>
+    </div>
+    <div class="center2">
+      <p>
+        <br />
+        Students who have already submitted their votes:
+      </p>
+      <li *ngFor="let student of students">{{ student.name }} <br /></li>
+    </div>
   </div>
+</body>

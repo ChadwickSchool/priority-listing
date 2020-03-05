@@ -1,10 +1,10 @@
 h1 {
   text-align: center;
-  background-color:  rgba(9, 39, 63, 0.878);
+  background-color: rgba(9, 39, 63, 0.878);
   padding-bottom: 20px;
   padding-top: 20px;
   color: rgb(226, 223, 223);
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: 'Trebuchet MS', Helvetica, sans-serif;
   font-weight: bolder;
   text-shadow: 4px 3px #060139;
   font-size: 375%;
@@ -22,7 +22,7 @@ h1 {
 
 body {
   padding-top: -20px;
-  background-color:  rgb(226, 223, 223);
+  background-color: rgb(226, 223, 223);
 }
 
 .hidden {
@@ -30,13 +30,13 @@ body {
 }
 
 .center {
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Times New Roman', Times, serif;
   font-weight: normal;
   font-size: medium;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color:  rgb(226, 223, 223);
+  background-color: rgb(226, 223, 223);
   padding-top: -10px;
 }
 

@@ -24,7 +24,7 @@
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [{ "input": "src/chadwick-theme.scss" }],
+            "styles": ["src/styles.scss"],
             "scripts": ["./node_modules/hammerjs/hammer.min.js"]
           },
           "configurations": {

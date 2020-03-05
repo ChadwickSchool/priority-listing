@@ -1,7 +1,7 @@
- <mat-toolbar>
+<mat-toolbar>
   <h1>Ranked Choice Voting</h1>
   <div>
-    <img src="../../assets/images/WickLogo.png" class="float-image">
+    <img src="../../assets/images/WickLogo.png" class="float-image" />
     <a routerLink="/">
       <mat-icon id="home-icon" class="home-icon">home</mat-icon>
       <span class="label">Home</span>
@@ -25,12 +25,6 @@
             </a>
           </ng-template>
 
-          <!-- make this one work too-->
-
-          <!-- <ng-template #teacher>
-
-          </ng-template> -->
-
           <ng-template #student>
             <a routerLink="/student" id="home">
               <mat-icon id="home-icon" class="icon">how_to_vote</mat-icon>
@@ -38,16 +32,6 @@
             </a>
           </ng-template>
         </a>
-
-        <!-- <a>
-          <mat-icon id="dashboard-icon" class="icon">fitness_center</mat-icon>
-          <div *ngIf="user.isAdmin; then teacher; else student"></div>
-          <ng-template #teacher>
-            <a routerLink="/view-data">
-              <span id="create-workout" class="label"></span>
-            </a>
-          </ng-template>
-        </a> -->
 
         <a>
           <mat-icon id="input-icon" class="icon">account_circle</mat-icon>
@@ -58,13 +42,10 @@
         <li>
           <a>
             <mat-icon id="input-icon" class="icon">account_circle</mat-icon>
-            <span class="label" id="login" (click)="googleSignIn()"
-              >Login</span
-            >
+            <span class="label" id="login" (click)="googleSignIn()">Login</span>
           </a>
         </li>
       </ng-template>
     </ul>
   </div>
 </mat-toolbar>
-

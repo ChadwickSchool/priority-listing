@@ -3,18 +3,18 @@ mat-sidenav-content,
 mat-sidenav {
   height: 100%;
   width: 15rem;
-  color:  rgba(9, 39, 63, 0.878);
+  color: #152d53;
 }
 
 mat-toolbar {
-  background-color:  rgba(9, 39, 63, 0.878);
+  background-color: #152d53;
   height: 110px;
 }
 
 h1 {
   text-align: center;
   color: rgb(226, 223, 223);
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: 'Trebuchet MS', Helvetica, sans-serif;
   font-weight: bolder;
   text-shadow: 4px 3px #060139;
   font-size: 200%;
@@ -25,8 +25,8 @@ h1 {
   width: 500px;
 
   //@media screen and (max-width: 1340px) {
-   // display: none;
- // }
+  // display: none;
+  // }
 }
 
 .float-image {
