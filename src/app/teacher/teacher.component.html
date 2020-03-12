@@ -2,9 +2,12 @@
   <img src="../../assets/images/WickLogo.png" class="float-image" />
   <h1>Make A Survey</h1>
 
+  <!-- name the survey -->
   <mat-form-field class="name">
     <input matInput placeholder="Survey Name" [(ngModel)]="surveyName" />
   </mat-form-field>
+
+  <!-- set number of options for survey -->
   <div class="center">
     <mat-form-field>
       <mat-label>Number of Options</mat-label>
@@ -19,6 +22,8 @@
       </mat-select>
     </mat-form-field>
   </div>
+
+  <!-- create a list of empty options for teacher to fill in -->
   <div
     class="center"
     *ngFor="
@@ -32,6 +37,8 @@
       <input matInput placeholder="" [(ngModel)]="selectedOptionsArray[i]" />
     </mat-form-field>
   </div>
+
+  <!-- submit button -->
   <div class="center">
     <button
       routerLink="/thank-you"

@@ -9,14 +9,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  constructor(public auth: AuthService, public userService: UserService, public router: Router) {}
+  constructor(
+    public auth: AuthService,
+    public userService: UserService,
+    public router: Router
+  ) {}
 
   ngOnInit() {}
 
+  // google sign in
   async googleSignIn() {
     await this.auth.googleSignin();
     const id = this.auth.userID;
     const isAdmin = await this.userService.isAdmin(id);
+    // differentiate between teacher and student
     if (isAdmin) {
       this.router.navigate(['teacher']);
     } else {

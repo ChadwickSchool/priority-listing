@@ -11,19 +11,17 @@ export class TeacherComponent implements OnInit {
   selectedOptionsArray: Array<string>;
   surveyName: string;
   hasSubmitted: boolean;
-
   options = [
-    {name: '2'},
-    {name: '3'},
-    {name: '4'},
-    {name: '5'},
-    {name: '6'},
-    {name: '7'},
-    {name: '8'},
-    {name: '9'},
-    {name: '10'}
+    { name: '2' },
+    { name: '3' },
+    { name: '4' },
+    { name: '5' },
+    { name: '6' },
+    { name: '7' },
+    { name: '8' },
+    { name: '9' },
+    { name: '10' }
   ];
-
   result: Array<string> = [];
 
   constructor(private saveOptionService: SaveOptionsService) {
@@ -31,28 +29,24 @@ export class TeacherComponent implements OnInit {
   }
 
   ngOnInit() {
+    // teacher has not finished survey
     this.hasSubmitted = false;
   }
 
+  // change number of options for teacher to create
   updateOptions(name: string) {
     this.selectedOption = name;
     this.selectedOptionsArray = new Array(parseInt(this.selectedOption, 10));
-    // this.options.length = this.options.value;
   }
-  refresh() {
 
-  }
+  refresh() {}
+
+  // submit survey
   submitOptions() {
     this.hasSubmitted = true;
     for (let i = 0; i < this.selectedOptionsArray.length; i++) {
-      /*
-      * if option is not undefined
-      * result.push(option)
-      */
-
       this.result[i] = this.selectedOptionsArray[i];
     }
-
     this.saveOptionService.addOptions(this.result, this.surveyName);
   }
 

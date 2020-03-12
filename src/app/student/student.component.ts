@@ -25,32 +25,25 @@ import { StudentService } from '../services/student.service';
 })
 export class StudentComponent implements OnInit {
   showChoices: boolean;
-
   todo = ['Loading...'];
-
   assignedChoices = [];
-
   choices = [];
-
   options: Options[];
-
   surveyNames: Array<string>;
-
   userId: string;
-
   currentUser: User;
-
   surveyName = '';
   voted: boolean;
-
   result: Array<string> = [];
+
   constructor(
     private saveChoiceService: SaveChoiceService,
     private getOptionsService: GetOptionsService,
     private surveyVotersService: SurveyVotersService,
     private userService: UserService,
     private authService: AuthService,
-    private studentService: StudentService) {
+    private studentService: StudentService
+  ) {
     this.voted = false;
     this.userId = '';
     this.options = [];
@@ -61,41 +54,44 @@ export class StudentComponent implements OnInit {
     this.showOptions();
     this.showChoices = false;
     this.setUpUser();
-    // this.getOptionsService.getOptionsByName(this.surveyName).subscribe(options => {
-    //   this.todo = options[0].tasks;
-
-    //   for (let todo of this.todo) {
-    //     this.choices.push([]);
-    //   }
-    // });
   }
 
+  // get user info
   async setUpUser() {
     this.userId = this.authService.getFirebaseUserID();
     this.currentUser = await this.userService.getCurrentUser(this.userId);
   }
 
+  // show the survey names for the user to select
   async showOptions() {
-    this.options = await this.getOptionsService.getOptions().pipe(take(1)).toPromise();
+    this.options = await this.getOptionsService
+      .getOptions()
+      .pipe(take(1))
+      .toPromise();
     this.showSurveyNames();
   }
 
+  // assign the user to have already voted
   async hasVoted() {
-    console.log(this.studentService.hasVoted(this.surveyName, this.userId));
-    this.voted = await this.studentService.hasVoted(this.surveyName, this.userId);
-    console.log(this.voted);
+    this.voted = await this.studentService.hasVoted(
+      this.surveyName,
+      this.userId
+    );
   }
 
+  // put the choices in an array for the user to rank
   showTasks(name: string) {
     this.showChoices = true;
     this.surveyName = name;
-    this.getOptionsService.getOptionsByName(this.surveyName).subscribe(options => {
-      this.todo = options[0].tasks;
-      this.choices = [];
-      for (let todo of this.todo) {
-        this.choices.push([]);
-      }
-    });
+    this.getOptionsService
+      .getOptionsByName(this.surveyName)
+      .subscribe(options => {
+        this.todo = options[0].tasks;
+        this.choices = [];
+        for (const todo of this.todo) {
+          this.choices.push([]);
+        }
+      });
     this.hasVoted();
   }
 
@@ -109,15 +105,18 @@ export class StudentComponent implements OnInit {
     return this.choices.map((choice, i) => 'choice' + i).concat(['todo']);
   }
 
+  // check if there are more choices than arrays
   hasExtras() {
+    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.choices.length; i++) {
       if (this.choices[i].length > 1) {
         return true;
       }
     }
-    return false;
+    return false; // false meanse all choices are loaded
   }
 
+  // pull choices from database
   getAssignedChoices(event: CdkDragDrop<Array<string>>) {
     for (let i = 0; i < this.todo.length; i++) {
       this.todo[i] = this.assignedChoices[i];
@@ -125,6 +124,7 @@ export class StudentComponent implements OnInit {
     this.getOptionsService.getOptions();
   }
 
+  // save the user vote
   saveChoiceOrder(event: CdkDragDrop<Array<string>>) {
     for (let i = 0; i < this.choices.length; i++) {
       this.result[i] = this.choices[i][0];
@@ -133,6 +133,7 @@ export class StudentComponent implements OnInit {
     this.surveyVotersService.addSurveyVoters(this.surveyName, this.currentUser);
   }
 
+  // ranking an option
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -148,12 +149,15 @@ export class StudentComponent implements OnInit {
         event.currentIndex
       );
 
+      // move the selected choice if that vote placement is taken
       while (this.hasExtras()) {
         for (let i = 0; i < this.choices.length; i++) {
           if (this.choices[i].length > 1) {
+            // move the selected choice down the voting list
             if (i < this.choices.length - 1) {
               transferArrayItem(this.choices[i], this.choices[i + 1], 1, 0);
             } else {
+              // move the selected choice back to the original list when voting list is full
               transferArrayItem(this.choices[i], this.todo, 1, 0);
             }
           }
