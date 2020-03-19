@@ -13,12 +13,12 @@ import { tap, take } from 'rxjs/operators';
 export class UserService {
   usersRef: AngularFirestoreCollection<User>;
   users: Observable<User[]>;
-  // admin: boolean;
   constructor(private afs: AngularFirestore) {
     this.usersRef = this.afs.collection<User>('users');
     this.users = this.usersRef.valueChanges();
   }
 
+  // check if the user is an admin
   async isAdmin(id: string): Promise<boolean> {
     let admin: boolean;
     await this.usersRef
@@ -34,10 +34,12 @@ export class UserService {
     return admin;
   }
 
+  // return the current user
   async getCurrentUser(idToken: string): Promise<User> {
     const query = await this.usersRef
       .doc<User>(idToken)
-      .valueChanges().pipe(take(1))
+      .valueChanges()
+      .pipe(take(1))
       .toPromise();
     return query;
   }

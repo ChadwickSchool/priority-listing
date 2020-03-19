@@ -11,7 +11,6 @@ import {
 
 import { Observable, of } from 'rxjs';
 import { switchMap, first, map, take } from 'rxjs/operators';
-// import UserClass from "../shared/models/user";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -20,24 +19,23 @@ export class AuthService {
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
-        // Logged in
+        // if logged in
         if (user) {
           this.userID = user.uid;
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
-          // Logged out
+          // if logged out
           return of(null);
         }
       })
     );
   }
 
+  // google sign in
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
     this.userID = credential.user.uid;
-    // check to see if the user exists in the database
-    // if user is not in database
     const userRef: AngularFirestoreDocument = this.afs.doc<User>(
       `users/${credential.user.uid}`
     );
@@ -45,13 +43,14 @@ export class AuthService {
     userRef.valueChanges().subscribe(user => {
       this.userID = credential.user.uid;
       if (user) {
-        return user;
+        return user; // if the user exists in the database
       } else {
-        return this.createStudentUser(credential.user);
+        return this.createStudentUser(credential.user); // create new user
       }
     });
   }
 
+  // get firebase user id
   getFirebaseUserID(): string {
     return this.userID;
   }
@@ -61,6 +60,7 @@ export class AuthService {
     return this.afAuth.authState.pipe(take(1)).toPromise();
   }
 
+  // create a user if not in database
   private createStudentUser(user) {
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
@@ -77,6 +77,7 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
 
+  // user sign out
   async signOut() {
     this.userID = undefined;
     await this.afAuth.auth.signOut();

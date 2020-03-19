@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import {
+  AngularFirestoreCollection,
+  AngularFirestore
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Options } from '../shared/models/options.model';
 
@@ -19,14 +22,14 @@ export class GetOptionsService {
     return this.options;
   }
 
+  // get teacher options by specific survey
   getOptionsByName(name: string) {
-    const query = this.afs.collection<Options>('options', ref => ref
-      .where('surveyName', '==', name));
+    const query = this.afs.collection<Options>('options', ref =>
+      ref.where('surveyName', '==', name)
+    );
     return query.valueChanges();
   }
 
   // this one is what that the teacher calls to make the tasks
-  addOptions(options: any) {
-
-  }
+  addOptions(options: any) {}
 }
