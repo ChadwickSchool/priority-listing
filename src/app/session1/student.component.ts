@@ -3,7 +3,7 @@ import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
-  CdkDropList
+  CdkDropList,
 } from '@angular/cdk/drag-drop';
 import { SaveChoiceService } from '../services/save-choice.service';
 import { GetOptionsService } from '../services/get-options.service';
@@ -21,7 +21,7 @@ import { StudentService } from '../services/student.service';
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
-  styleUrls: ['./student.component.scss']
+  styleUrls: ['./student.component.scss'],
 })
 export class StudentComponent implements OnInit {
   showChoices: boolean;
@@ -85,7 +85,7 @@ export class StudentComponent implements OnInit {
     this.surveyName = name;
     this.getOptionsService
       .getOptionsByName(this.surveyName)
-      .subscribe(options => {
+      .subscribe((options) => {
         this.todo = options[0].tasks;
         this.choices = [];
         for (const todo of this.todo) {
@@ -96,7 +96,7 @@ export class StudentComponent implements OnInit {
   }
 
   showSurveyNames() {
-    this.options.forEach(element => {
+    this.options.forEach((element) => {
       this.surveyNames.push(element.surveyName);
     });
   }
