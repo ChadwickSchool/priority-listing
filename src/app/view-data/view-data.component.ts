@@ -7,7 +7,7 @@ import { take } from 'rxjs/operators';
 import { GetOptionsService } from '../services/get-options.service';
 import {
   AngularFirestoreCollection,
-  AngularFirestore
+  AngularFirestore,
 } from '@angular/fire/firestore';
 import { Choice } from '../shared/models/choice.model';
 import { Options } from '../shared/models/options.model';
@@ -19,7 +19,7 @@ import { SurveyVoters } from '../shared/models/surveyVoters.model';
 @Component({
   selector: 'app-view-data',
   templateUrl: './view-data.component.html',
-  styleUrls: ['./view-data.component.scss']
+  styleUrls: ['./view-data.component.scss'],
 })
 export class ViewDataComponent implements OnInit {
   winner: string;
@@ -67,9 +67,9 @@ export class ViewDataComponent implements OnInit {
     await this.StudentChoices();
     // set students observable to the selected survey's votes
     this.students$ = this.surveyVotersService.getSurveyVoters(this.surveyName);
-    this.students$.subscribe(voters => {
+    this.students$.subscribe((voters) => {
       this.students = []; // put it into an array
-      voters.forEach(voter => {
+      voters.forEach((voter) => {
         this.students = this.students.concat(voter.students); // put all student vote arrays into one massive array
       });
     });
@@ -109,17 +109,18 @@ export class ViewDataComponent implements OnInit {
 
   async showOptions() {
     this.options = await this.getOptionsService
-      .getOptions()
+      .getSpecificOptions()
       .pipe(take(1))
       .toPromise();
     this.showSurveyNames();
+    console.log('showOptions is being called');
   }
 
   async TeacherOptions() {
     this.candidatesLeft = await new Promise((resolve, reject) => {
       this.getOptionsService
         .getOptionsByName(this.surveyName)
-        .subscribe(options => {
+        .subscribe((options) => {
           resolve(options[Object.keys(options)[0]].tasks);
         });
     });
@@ -129,9 +130,9 @@ export class ViewDataComponent implements OnInit {
     this.dataLeft = await new Promise((resolve, reject) => {
       this.getAllChoicesService
         .getStudentResponsesByName(this.surveyName)
-        .subscribe(studentChoices => {
+        .subscribe((studentChoices) => {
           resolve(
-            studentChoices.map(element => {
+            studentChoices.map((element) => {
               return element.ranking;
             })
           );
@@ -140,7 +141,7 @@ export class ViewDataComponent implements OnInit {
   }
 
   showSurveyNames() {
-    this.options.forEach(element => {
+    this.options.forEach((element) => {
       this.surveyNames.push(element.surveyName);
     });
   }
