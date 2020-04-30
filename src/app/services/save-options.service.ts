@@ -31,14 +31,25 @@ export class SaveOptionsService {
   }
 
   // combine id, the survey name, and options into one document on firebase
-  async addOptions(options: Array<string>, surveyName: string, email: string) {
+  async addOptions(
+    options: Array<string>,
+    surveyName: string,
+    email: string,
+    displayName: string
+  ) {
     const id = this.afs.createId();
     const firebaseOptions = [];
 
     for (const optionsArray of options) {
       firebaseOptions.push(optionsArray);
     }
-    const newRanking = new OptionsClass(id, surveyName, firebaseOptions, email);
+    const newRanking = new OptionsClass(
+      id,
+      surveyName,
+      firebaseOptions,
+      email,
+      displayName
+    );
     this.optionsRef.doc(id).set(Object.assign({}, newRanking));
   }
 

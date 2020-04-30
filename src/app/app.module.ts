@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from 'src/environments/environment';
 import { TeacherComponent } from './teacher/teacher.component';
 import { StudentComponent } from './session1/student.component';
-import { StudentComponent2 } from './session2/student2.component';
 import { AppComponent } from './app.component';
 
 // firebase imports
@@ -25,12 +24,11 @@ import { NavbarComponent } from './navbar/navbar.component';
     AppComponent,
     TeacherComponent,
     StudentComponent,
-    StudentComponent2,
     ViewDataComponent,
     LoginComponent,
     ThankYouComponent,
     StudentThankYouComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,9 +38,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

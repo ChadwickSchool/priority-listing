@@ -17,6 +17,8 @@ export class AuthService {
   user$: Observable<User>;
   userID: string;
   email: string;
+  displayName: string;
+
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
@@ -58,6 +60,7 @@ export class AuthService {
     // get email
     userRef.valueChanges().subscribe((user) => {
       this.email = credential.user.email;
+      this.displayName = credential.user.displayName;
       if (user) {
         return user; // if the user exists in the database
       } else {
@@ -70,6 +73,10 @@ export class AuthService {
   getFirebaseUserID(): string {
     console.log('userID: ' + this.userID);
     return this.userID;
+  }
+
+  getFirebaseDisplayName(): string {
+    return this.displayName;
   }
 
   // get firebase email

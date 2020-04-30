@@ -29,6 +29,7 @@ export class TeacherComponent implements OnInit {
   result: Array<string> = [];
   email: string;
   userID: string;
+  displayName = '';
 
   constructor(
     private saveOptionService: SaveOptionsService,
@@ -57,12 +58,18 @@ export class TeacherComponent implements OnInit {
   async submitOptions() {
     this.hasSubmitted = true;
     this.email = this.authService.getFirebaseEmail();
+    this.displayName = this.authService.getFirebaseDisplayName();
     // this.email = await this.userService.getCurrentUser(this.userID);
 
     for (let i = 0; i < this.selectedOptionsArray.length; i++) {
       this.result[i] = this.selectedOptionsArray[i];
     }
-    this.saveOptionService.addOptions(this.result, this.surveyName, this.email);
+    this.saveOptionService.addOptions(
+      this.result,
+      this.surveyName,
+      this.email,
+      this.displayName
+    );
     console.log('email: ' + this.email);
   }
 
