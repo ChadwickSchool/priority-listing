@@ -53,4 +53,8 @@ export class TeacherComponent implements OnInit {
   indexTracker(index: number, value: any) {
     return index;
   }
+
+  deleteSurvey(surveyName: string) {
+    this.saveOptionService.deleteOptions(surveyName);
+  }
 }

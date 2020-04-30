@@ -30,7 +30,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     LoginComponent,
     ThankYouComponent,
     StudentThankYouComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

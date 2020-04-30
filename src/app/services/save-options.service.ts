@@ -34,4 +34,8 @@ export class SaveOptionsService {
     const newRanking = new OptionsClass(id, surveyName, firebaseOptions);
     this.optionsRef.doc(id).set(Object.assign({}, newRanking));
   }
+
+  deleteOptions(surveyName: string) {
+
+  }
 }

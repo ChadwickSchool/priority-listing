@@ -59,6 +59,18 @@ export class ViewDataComponent implements OnInit {
     this.showOptions();
   }
 
+  async delete() {
+    this.afs.firestore
+      .collection('options')
+      .where('surveyName', '==', this.surveyName)
+      .get()
+      .then(docs => {
+        docs.forEach(doc => {
+          this.afs.firestore.collection('options').doc(doc.id).delete();
+        });
+    });
+  }
+
   // get data from firebase and activate voting algorithm
   async fetchAndSolve() {
     // get teacher options
