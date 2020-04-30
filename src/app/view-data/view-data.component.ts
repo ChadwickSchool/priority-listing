@@ -60,6 +60,10 @@ export class ViewDataComponent implements OnInit {
   }
 
   async delete() {
+    if (!window.confirm('Are you sure you want to delete ' + this.surveyName + '?')) {
+      return;
+    }
+
     this.afs.firestore
       .collection('options')
       .where('surveyName', '==', this.surveyName)
