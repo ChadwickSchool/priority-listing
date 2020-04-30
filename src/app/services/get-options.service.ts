@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import {
   AngularFirestoreCollection,
-  AngularFirestore
+  AngularFirestore,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Options } from '../shared/models/options.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GetOptionsService {
   optionsRef: AngularFirestoreCollection<Options>;
   options: Observable<Options[]>;
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, private authService: AuthService) {
     this.optionsRef = afs.collection<Options>('options');
     this.options = this.optionsRef.valueChanges();
   }
@@ -22,9 +23,18 @@ export class GetOptionsService {
     return this.options;
   }
 
+  getSpecificOptions(): Observable<Options[]> {
+    // filter through and select only the options with the same email as the user
+    return this.afs
+      .collection<Options>('options', (ref) =>
+        ref.where('email', '==', this.authService.getFirebaseEmail())
+      )
+      .valueChanges();
+  }
+
   // get teacher options by specific survey
   getOptionsByName(name: string) {
-    const query = this.afs.collection<Options>('options', ref =>
+    const query = this.afs.collection<Options>('options', (ref) =>
       ref.where('surveyName', '==', name)
     );
     return query.valueChanges();

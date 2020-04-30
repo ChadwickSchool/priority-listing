@@ -3,7 +3,7 @@ import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
-  CdkDropList
+  CdkDropList,
 } from '@angular/cdk/drag-drop';
 import { SaveChoiceService } from '../services/save-choice.service';
 import { GetOptionsService } from '../services/get-options.service';
@@ -21,7 +21,7 @@ import { StudentService } from '../services/student.service';
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
-  styleUrls: ['./student.component.scss']
+  styleUrls: ['./student.component.scss'],
 })
 export class StudentComponent implements OnInit {
   showChoices: boolean;
@@ -35,6 +35,9 @@ export class StudentComponent implements OnInit {
   surveyName = '';
   voted: boolean;
   result: Array<string> = [];
+  teacherNames: Array<string>;
+  teacherName = '';
+  displayName = '';
 
   constructor(
     private saveChoiceService: SaveChoiceService,
@@ -48,6 +51,7 @@ export class StudentComponent implements OnInit {
     this.userId = '';
     this.options = [];
     this.surveyNames = [];
+    this.teacherNames = [];
   }
 
   ngOnInit(): void {
@@ -68,7 +72,29 @@ export class StudentComponent implements OnInit {
       .getOptions()
       .pipe(take(1))
       .toPromise();
-    this.showSurveyNames();
+    console.log('options', this.options);
+
+    this.options.forEach((option) => {
+      if (!this.teacherNames.includes(option.displayName)) {
+        this.teacherNames.push(option.displayName);
+      }
+    });
+  }
+
+  // put the choices in an array for the user to rank
+  showTeachers(displayName: string) {
+    this.showChoices = true;
+    this.teacherName = displayName;
+    /*this.getOptionsService
+      .getOptionsByName(this.teacherName)
+      .subscribe((options) => {
+        this.todo = options[0].tasks;
+        this.displayName = this.authService.getFirebaseDisplayName();
+        for (const todo of this.todo) {
+          // this.displayName.push([]);
+        }
+      });*/
+    this.showSurveyNames(this.teacherName);
   }
 
   // assign the user to have already voted
@@ -85,7 +111,7 @@ export class StudentComponent implements OnInit {
     this.surveyName = name;
     this.getOptionsService
       .getOptionsByName(this.surveyName)
-      .subscribe(options => {
+      .subscribe((options) => {
         this.todo = options[0].tasks;
         this.choices = [];
         for (const todo of this.todo) {
@@ -95,9 +121,13 @@ export class StudentComponent implements OnInit {
     this.hasVoted();
   }
 
-  showSurveyNames() {
-    this.options.forEach(element => {
-      this.surveyNames.push(element.surveyName);
+  showSurveyNames(teacherName: string) {
+    this.surveyNames = [];
+
+    this.options.forEach((element) => {
+      if (element.displayName === teacherName) {
+        this.surveyNames.push(element.surveyName);
+      }
     });
   }
 
