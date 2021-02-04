@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +26,18 @@ export class RankVotesService {
       roundScores = {};
 
       // Give a score based on first-place votes.
-      for (let i = 0; i < this.dataLeft.length; i++) {
-        roundScores[this.dataLeft[i][0]]++;
+      // for (let i = 0; i < this.dataLeft.length; i++) {
+      //   roundScores[this.dataLeft[i][0]]++;
+      // }
+      for (const data of this.dataLeft) {
+        roundScores[data[0]]++;
       }
 
       let worstCandidate;
       let worstCandidateScore = -1;
 
       // Find candidate with lowest first-place votes.
-      for (let candidate of this.candidatesLeft) {
+      for (const candidate of this.candidatesLeft) {
         if (worstCandidateScore === -1 || roundScores[candidate] < worstCandidateScore) {
           worstCandidate = candidate;
           worstCandidateScore = roundScores[candidate];
@@ -44,8 +48,8 @@ export class RankVotesService {
       delete this.candidatesLeft[worstCandidate];
 
       // Remove them from the candidate votes so that lower candidates rise up.
-      for (let i = 0; i < this.dataLeft.length; i++) {
-        this.dataLeft[i].splice(this.dataLeft[i].indexOf(worstCandidate), 1);
+      for (const data of this.dataLeft) {
+        data.splice(this.dataLeft[0].indexOf(worstCandidate), 1);
       }
     }
 

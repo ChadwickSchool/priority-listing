@@ -60,7 +60,11 @@ export class ViewDataComponent implements OnInit {
   }
 
   async delete() {
-    if (!window.confirm('Are you sure you want to delete ' + this.surveyName + '?')) {
+    if (
+      !window.confirm(
+        'Are you sure you want to delete ' + this.surveyName + '?'
+      )
+    ) {
       return;
     }
 
@@ -68,11 +72,11 @@ export class ViewDataComponent implements OnInit {
       .collection('options')
       .where('surveyName', '==', this.surveyName)
       .get()
-      .then(docs => {
-        docs.forEach(doc => {
+      .then((docs) => {
+        docs.forEach((doc) => {
           this.afs.firestore.collection('options').doc(doc.id).delete();
         });
-    });
+      });
   }
 
   // get data from firebase and activate voting algorithm
@@ -100,23 +104,23 @@ export class ViewDataComponent implements OnInit {
 
     let sum = 0;
 
-    for (const id in roundScores) {
-      sum += roundScores[id];
+    for (const value of Object.values(roundScores)) {
+      sum += value;
     }
 
     const percents = {};
 
-    for (const id in roundScores) {
+    for (const id of Object.keys(roundScores)) {
       percents[id] = roundScores[id] / sum;
     }
 
-    for (const id in percents) {
+    for (const id of Object.keys(percents)) {
       percents[id] = (percents[id] * 100).toFixed(0) + '%';
     }
 
     let output = '';
 
-    for (const id in percents) {
+    for (const id of Object.keys(percents)) {
       output += id + ' ' + percents[id] + ', ';
     }
 
@@ -167,19 +171,19 @@ export class ViewDataComponent implements OnInit {
     this.surveyName = name;
   }
 
-  findRoundScores() {
+  findRoundScores(): {[key: string]: number} {
     const roundScores = {};
 
-    for (let i = 0; i < this.dataLeft.length; i++) {
-      for (let j = 0; j < this.dataLeft[i].length; j++) {
-        if (roundScores[this.dataLeft[i][j]] === undefined) {
-          roundScores[this.dataLeft[i][j]] = 0;
+    for (const data of this.dataLeft) {
+      for (const dataS of this.dataLeft) {
+        if (roundScores[this.dataLeft[0][0]] === undefined) {
+          roundScores[this.dataLeft[0][0]] = 0;
         }
       }
     }
     // Give a score based on first-place votes.
-    for (let i = 0; i < this.dataLeft.length; i++) {
-      roundScores[this.dataLeft[i][0]]++;
+    for (const data of this.dataLeft) {
+      roundScores[this.dataLeft[0][0]]++;
     }
     return roundScores;
   }
@@ -187,15 +191,15 @@ export class ViewDataComponent implements OnInit {
   solve() {
     // Go through all of the rounds
     while (this.candidatesLeft.length > 2) {
-      const roundScores = this.findRoundScores();
+      const roundScore = this.findRoundScores();
 
       // Give a score based on first-place votes.
-      for (let i = 0; i < this.dataLeft.length; i++) {
-        if (!roundScores[this.dataLeft[i][0]]) {
-          roundScores[this.dataLeft[i][0]] = 0;
+      for (const data of this.dataLeft) {
+        if (!roundScore[this.dataLeft[0][0]]) {
+          roundScore[this.dataLeft[0][0]] = 0;
         }
 
-        roundScores[this.dataLeft[i][0]]++;
+        roundScore[this.dataLeft[0][0]]++;
       }
 
       let worstCandidate;
@@ -205,10 +209,10 @@ export class ViewDataComponent implements OnInit {
       for (const candidate of this.candidatesLeft) {
         if (
           worstCandidateScore === -1 ||
-          roundScores[candidate] < worstCandidateScore
+          roundScore[candidate] < worstCandidateScore
         ) {
           worstCandidate = candidate;
-          worstCandidateScore = roundScores[candidate];
+          worstCandidateScore = roundScore[candidate];
         }
       }
 
@@ -219,28 +223,28 @@ export class ViewDataComponent implements OnInit {
       );
 
       // Remove them from the candidate votes so that lower candidates rise up
-      for (let i = 0; i < this.dataLeft.length; i++) {
-        this.dataLeft[i].splice(this.dataLeft[i].indexOf(worstCandidate), 1);
+      for (const data of this.dataLeft) {
+        this.dataLeft[0].splice(this.dataLeft[0].indexOf(worstCandidate), 1);
       }
     }
 
-    let roundScores = this.findRoundScores();
+    const finalRoundScores = this.findRoundScores();
     // Compare the final two candidates and return the winner
     if (
-      (roundScores[this.candidatesLeft[0]] || 0) >
-      (roundScores[this.candidatesLeft[1]] || 0)
+      (finalRoundScores[this.candidatesLeft[0]] || 0) >
+      (finalRoundScores[this.candidatesLeft[1]] || 0)
     ) {
       this.secondPlace = this.candidatesLeft[1];
       this.calculateRankedPercents(
-        roundScores[this.candidatesLeft[0]],
-        roundScores[this.candidatesLeft[1]]
+        finalRoundScores[this.candidatesLeft[0]],
+        finalRoundScores[this.candidatesLeft[1]]
       );
       return this.candidatesLeft[0];
     } else {
       this.secondPlace = this.candidatesLeft[0];
       this.calculateRankedPercents(
-        roundScores[this.candidatesLeft[1]],
-        roundScores[this.candidatesLeft[0]]
+        finalRoundScores[this.candidatesLeft[1]],
+        finalRoundScores[this.candidatesLeft[0]]
       );
       return this.candidatesLeft[1];
     }

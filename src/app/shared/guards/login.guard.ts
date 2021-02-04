@@ -21,7 +21,7 @@ export class LoginGuard implements CanActivate {
     const id = await firebaseUser.getIdToken();
 
     if (!loggedIn) {
-      this.router.navigate(['']);
+      await this.router.navigate(['']);
     }
     return loggedIn;
   }

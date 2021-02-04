@@ -43,7 +43,7 @@ describe('SaveChoiceService', () => {
 
   fit('should add choice when add is called', (done: DoneFn) => {
     const service: SaveChoiceService = TestBed.get(SaveChoiceService);
-    const expectedRanking = ['choice1']
+    const expectedRanking = ['choice1'];
     service.addChoices(expectedRanking);
     const expectedResult = {id: '100', ranking: expectedRanking};
     service.choices$.subscribe(choices => {

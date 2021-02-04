@@ -29,23 +29,20 @@ export class StudentService {
   }
 
   // check if user has voted on specific survey
-  hasVoted(surveyName: string, uid: string): Promise<boolean> {
-    return this.afs
-      .collection<SurveyVoters>('surveyVoters', ref =>
-        ref.where('surveyName', '==', surveyName)
+  async hasVoted(surveyName: string, uid: string): Promise<boolean> {
+    const value = await this.afs
+      .collection<SurveyVoters>('surveyVoters', ref => ref.where('surveyName', '==', surveyName)
       )
       .valueChanges()
       .pipe(take(1)) // select the specific survey
-      .toPromise()
-      .then(value => {
-        for (let i = 0; i < value.length; i++) {
-          for (let j = 0; j < value[i].students.length; j++) {
-            if (value[i].students[j].uid === uid) {
-              return true;
-            }
-          }
+      .toPromise();
+    for (const values of value) {
+      for (const students of value[0].students) {
+        if (value[0].students[0].uid === uid) {
+          return true;
         }
-        return false;
-      });
+      }
+    }
+    return false;
   }
 }

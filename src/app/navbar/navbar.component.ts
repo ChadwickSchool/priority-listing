@@ -24,9 +24,9 @@ export class NavbarComponent implements OnInit {
     const isAdmin = await this.userService.isAdmin(id);
     // differentiate between teacher and student
     if (isAdmin) {
-      this.router.navigate(['teacher']);
+      await this.router.navigate(['teacher']);
     } else {
-      this.router.navigate(['student']);
+      await this.router.navigate(['student']);
     }
   }
 }

@@ -87,6 +87,9 @@
     "use-pipe-transform-interface": true
   },
   "rulesDirectory": [
-    "codelyzer"
-  ]
+    "node_modules/codelyzer"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.tslint": true
+}
 }
