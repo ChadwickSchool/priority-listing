@@ -54,7 +54,7 @@ export class SaveOptionsService {
   }
 
   deleteOptions(surveyName: string) {
-
+    
   }
 
   // return the current user

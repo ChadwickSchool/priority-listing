@@ -8,6 +8,7 @@ import { StudentThankYouComponent } from './student-thank-you/student-thank-you.
 import { LoginComponent } from './login/login.component';
 import { LoginGuard } from './shared/guards/login.guard';
 import { AdminGuard } from './shared/guards/admin.guard';
+import { ManageSurveyComponent } from './manage-survey/manage-survey.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
     path: 'thank-you',
     component: ThankYouComponent,
     canActivate: [LoginGuard, AdminGuard],
+  },
+  {
+    path: 'manage-survey',
+    component: ManageSurveyComponent,
   },
   {
     path: 'student-thank-you',
