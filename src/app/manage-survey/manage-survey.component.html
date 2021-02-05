@@ -4,5 +4,10 @@
 </div>
 
 <div class="center">
-    <button style="position: absolute; left: 50px; top: 210px" mat-stroked-button="data" color="primary" class="delete">Delete a Survey</button>
+    <button style="position: absolute; left: 50px; top: 210px" mat-raised-button color="warn" (click)="delete()">Delete a Survey</button>
 </div>
+
+<div class="center">
+    <button style="position: absolute; top: 405px" mat-raised-button color="warn" (click)="delete()">
+      Delete This Survey
+    </button>
