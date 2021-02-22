@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StudentComponent } from './student.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SaveChoiceService } from '../services/save-choice.service';
-import { GetOptionsService } from '../services/get-options.service';
+import { GetSurveyService } from '../services/get-options.service';
 import { of } from 'rxjs';
 
 describe('StudentComponent', () => {
@@ -19,7 +19,7 @@ describe('StudentComponent', () => {
       declarations: [StudentComponent],
       providers: [
         { provide: SaveChoiceService, useValue: mockSaveChoiceService },
-        { provide: GetOptionsService, useValue: mockGetOptionsService }
+        { provide: GetSurveyService, useValue: mockGetOptionsService }
 
       ]
     }).compileComponents();

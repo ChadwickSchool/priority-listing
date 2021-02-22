@@ -12,4 +12,8 @@ export class ManageSurveyComponent implements OnInit {
   ngOnInit() {
   }
 
+  getSurveys() {
+    
+  }
+
 }

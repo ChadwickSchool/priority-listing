@@ -9,11 +9,16 @@ import { LoginComponent } from './login/login.component';
 import { LoginGuard } from './shared/guards/login.guard';
 import { AdminGuard } from './shared/guards/admin.guard';
 import { ManageSurveyComponent } from './manage-survey/manage-survey.component';
+import { MySurveysComponent } from './my-surveys/my-surveys.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LoginComponent,
+  },
+  {
+    path: 'my-surveys',
+    component: MySurveysComponent,
   },
   {
     path: 'session1',

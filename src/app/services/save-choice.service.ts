@@ -4,29 +4,29 @@ import {
   AngularFirestore
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Choice } from '../shared/models/choice.model';
+import { Choice as Submission } from '../shared/models/choice.model';
 import ChoiceClass from '../shared/models/choice';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SaveChoiceService {
-  choicesRef: AngularFirestoreCollection<Choice>;
-  choices$: Observable<Choice[]>;
+  submissionsRef: AngularFirestoreCollection<Submission>;
+  submissions: Observable<Submission[]>;
   constructor(private afs: AngularFirestore) {
-    this.choicesRef = afs.collection<Choice>('choices');
-    this.choices$ = this.choicesRef.valueChanges();
+    this.submissionsRef = afs.collection<Submission>('submissions');
+    this.submissions = this.submissionsRef.valueChanges();
   }
 
-  // get the choices from firebase
-  getChoices(): Observable<Choice[]> {
-    return this.choices$;
+  // get the submissions from firebase
+  getSubmissions(): Observable<Submission[]> {
+    return this.submissions;
   }
 
-  // combine id, the survey name, and choices into one document on firebase
-  addChoices(choices: Array<string>, surveyName: string) {
+  // combine id, the survey name, and submissions into one document on firebase
+  addChoices(submissions: Array<string>, surveyName: string) {
     const id = this.afs.createId();
-    const newRanking = new ChoiceClass(id, surveyName, choices);
-    this.choicesRef.doc(id).set(Object.assign({}, newRanking));
+    const newRanking = new ChoiceClass(id, surveyName, submissions);
+    this.submissionsRef.doc(id).set(Object.assign({}, newRanking));
   }
 }

@@ -38,7 +38,7 @@ describe('SaveChoiceService', () => {
   it('should be created', () => {
     const service: SaveChoiceService = TestBed.get(SaveChoiceService);
     expect(service).toBeTruthy();
-    expect(angularFirestoreStub.collection).toHaveBeenCalledWith('choices');
+    expect(angularFirestoreStub.collection).toHaveBeenCalledWith('submissions');
   });
 
   fit('should add choice when add is called', (done: DoneFn) => {
@@ -46,7 +46,7 @@ describe('SaveChoiceService', () => {
     const expectedRanking = ['choice1'];
     service.addChoices(expectedRanking);
     const expectedResult = {id: '100', ranking: expectedRanking};
-    service.choices$.subscribe(choices => {
+    service.submissions.subscribe(choices => {
       expect(choices).toContain(expectedResult);
       done();
     });

@@ -36,9 +36,9 @@ export class StudentService {
       .valueChanges()
       .pipe(take(1)) // select the specific survey
       .toPromise();
-    for (const values of value) {
-      for (const students of value[0].students) {
-        if (value[0].students[0].uid === uid) {
+    for (const values of Object(value.length)) {
+      for (const students of values) {
+        if (values.students[students].uid === uid) {
           return true;
         }
       }

@@ -1,4 +1,4 @@
-export interface Options {
+export interface Surveys {
   id: string;
   surveyName: string;
   tasks: Array<string>;

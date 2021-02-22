@@ -1,6 +1,6 @@
-import { Options } from './options.model';
+import { Surveys } from './options.model';
 
-export default class OptionsClass implements Options {
+export default class OptionsClass implements Surveys {
   id: string;
   surveyName: string;
   tasks: Array<string>;

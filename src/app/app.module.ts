@@ -19,6 +19,7 @@ import { StudentThankYouComponent } from './student-thank-you/student-thank-you.
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ManageSurveyComponent } from './manage-survey/manage-survey.component';
+import { MySurveysComponent } from './my-surveys/my-surveys.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ManageSurveyComponent } from './manage-survey/manage-survey.component';
     StudentThankYouComponent,
     NavbarComponent,
     ManageSurveyComponent,
+    MySurveysComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@ export class RankVotesService {
 
   // Format:
   //   - candidates: List of option names. (List of strings).
-  //   - data: List of student choices. (List of list of strings).
+  //   - data: List of student submissions. (List of list of strings).
   //
   //
   constructor(candidates, data) {
@@ -49,7 +49,7 @@ export class RankVotesService {
 
       // Remove them from the candidate votes so that lower candidates rise up.
       for (const data of this.dataLeft) {
-        data.splice(this.dataLeft[0].indexOf(worstCandidate), 1);
+        data.splice(data.indexOf(worstCandidate), 1);
       }
     }
 

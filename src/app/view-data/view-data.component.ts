@@ -4,13 +4,13 @@ import { GetAllChoicesService } from '../services/get-all-choices.service';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { GetOptionsService } from '../services/get-options.service';
+import { GetSurveyService } from '../services/get-options.service';
 import {
   AngularFirestoreCollection,
   AngularFirestore,
 } from '@angular/fire/firestore';
 import { Choice } from '../shared/models/choice.model';
-import { Options } from '../shared/models/options.model';
+import { Surveys } from '../shared/models/options.model';
 import { StudentService } from '../services/student.service';
 import { User } from '../shared/models/user.model';
 import { SurveyVotersService } from '../services/survey-voters.service';
@@ -33,26 +33,26 @@ export class ViewDataComponent implements OnInit {
   normalVoting;
   dataLeft: string[][]; // List of student choices. (List of list of strings)
   candidatesLeft: string[]; // List of option names. (List of strings)
-  choicesRef: AngularFirestoreCollection<Choice>;
-  choices: Observable<Choice[]>;
+  submissionsRef: AngularFirestoreCollection<Choice>;
+  submissions: Observable<Choice[]>;
   surveyNames: Array<string>;
-  options: Options[];
+  surveys: Surveys[];
   surveyName = '';
   newArray;
 
   constructor(
-    private getOptionsService: GetOptionsService,
+    private getOptionsService: GetSurveyService,
     private afs: AngularFirestore,
     private surveyVotersService: SurveyVotersService,
     private getAllChoicesService: GetAllChoicesService
   ) {
-    this.choicesRef = afs.collection<Choice>('choices');
-    this.choices = this.choicesRef.valueChanges();
+    this.submissionsRef = afs.collection<Choice>('submissions');
+    this.submissions = this.submissionsRef.valueChanges();
     this.solution = '';
     this.students = [];
     this.surveyNames = [];
     this.secondPlace = '';
-    this.options = [];
+    this.surveys = [];
   }
 
   ngOnInit() {
@@ -69,12 +69,12 @@ export class ViewDataComponent implements OnInit {
     }
 
     this.afs.firestore
-      .collection('options')
+      .collection('surveys')
       .where('surveyName', '==', this.surveyName)
       .get()
       .then((docs) => {
         docs.forEach((doc) => {
-          this.afs.firestore.collection('options').doc(doc.id).delete();
+          this.afs.firestore.collection('surveys').doc(doc.id).delete();
         });
       });
   }
@@ -104,23 +104,37 @@ export class ViewDataComponent implements OnInit {
 
     let sum = 0;
 
-    for (const value of Object.values(roundScores)) {
-      sum += value;
+    // for (const value of Object.values(roundScores)) {
+    //   sum += value;
+    // }
+    for (const id in roundScores) {
+      sum += roundScores[id];
     }
 
     const percents = {};
 
-    for (const id of Object.keys(roundScores)) {
+    // for (const id of Object.keys(roundScores)) {
+    //   percents[id] = roundScores[id] / sum;
+    // }
+
+    for (const id in roundScores) {
       percents[id] = roundScores[id] / sum;
     }
 
-    for (const id of Object.keys(percents)) {
-      percents[id] = (percents[id] * 100).toFixed(0) + '%';
+    // for (const id of Object.keys(percents)) {
+    //   percents[id] = (percents[id] * 100).toFixed(0) + '%';
+    // }
+
+    for (const id in percents) {
+      percents[id]=(percents[id] * 100).toFixed(0) + '%';
     }
 
     let output = '';
 
-    for (const id of Object.keys(percents)) {
+    // for (const id of Object.keys(percents)) {
+    //   output += id + ' ' + percents[id] + ', ';
+    // }
+    for (const id in percents) {
       output += id + ' ' + percents[id] + ', ';
     }
 
@@ -128,7 +142,7 @@ export class ViewDataComponent implements OnInit {
   }
 
   async showOptions() {
-    this.options = await this.getOptionsService
+    this.surveys = await this.getOptionsService
       .getSpecificOptions()
       .pipe(take(1))
       .toPromise();
@@ -161,7 +175,7 @@ export class ViewDataComponent implements OnInit {
   }
 
   showSurveyNames() {
-    this.options.forEach((element) => {
+    this.surveys.forEach((element) => {
       this.surveyNames.push(element.surveyName);
     });
   }
@@ -170,20 +184,29 @@ export class ViewDataComponent implements OnInit {
   setName(name: string) {
     this.surveyName = name;
   }
-
-  findRoundScores(): {[key: string]: number} {
+  findRoundScores() {
+  // findRoundScores(): {[key: string]: number} {
     const roundScores = {};
 
-    for (const data of this.dataLeft) {
-      for (const dataS of this.dataLeft) {
-        if (roundScores[this.dataLeft[0][0]] === undefined) {
-          roundScores[this.dataLeft[0][0]] = 0;
+    for (let i = 0; i < this.dataLeft.length; i++) {
+      for (let j = 0; j < this.dataLeft[i].length; j++) {
+        if (roundScores[this.dataLeft[i][j]] === undefined) {
+          roundScores[this.dataLeft[i][j]] = 0;
         }
       }
     }
+    // for (const data of this.dataLeft) {
+    //   for (const dataS of data) {
+    //     if (roundScores[dataS] === undefined) {
+    //       roundScores[dataS] = 0;
+    //     }
+    //   }
+    // }
     // Give a score based on first-place votes.
-    for (const data of this.dataLeft) {
-      roundScores[this.dataLeft[0][0]]++;
+
+    for (let i = 0; i < this.dataLeft.length; i++) {
+    // for (const data of this.dataLeft) {
+      roundScores[this.dataLeft[i][0]]++;
     }
     return roundScores;
   }
@@ -194,16 +217,23 @@ export class ViewDataComponent implements OnInit {
       const roundScore = this.findRoundScores();
 
       // Give a score based on first-place votes.
-      for (const data of this.dataLeft) {
-        if (!roundScore[this.dataLeft[0][0]]) {
-          roundScore[this.dataLeft[0][0]] = 0;
+      for (let i = 0; i < this.dataLeft.length; i++) {
+        if (!roundScore[this.dataLeft[i][0]]) {
+          roundScore[this.dataLeft[i][0]] = 0;
         }
-
-        roundScore[this.dataLeft[0][0]]++;
+        roundScore[this.dataLeft[i][0]]++;
       }
+      // for (const data of this.dataLeft) {
+      //   if (!roundScore[data[0]]) {
+      //     roundScore[data[0]] = 0;
+      //   }
+
+      //   roundScore[data[0]]++;
+      // }
 
       let worstCandidate;
       let worstCandidateScore = -1;
+
 
       // Find candidate with lowest first-place votes.
       for (const candidate of this.candidatesLeft) {
@@ -223,10 +253,15 @@ export class ViewDataComponent implements OnInit {
       );
 
       // Remove them from the candidate votes so that lower candidates rise up
-      for (const data of this.dataLeft) {
-        this.dataLeft[0].splice(this.dataLeft[0].indexOf(worstCandidate), 1);
+  //     for (const data of this.dataLeft) {
+  //       // this.dataLeft[i].splice(this.dataLeft[i].indexOf(worstCandidate), 1);
+  //       data.splice(data.indexOf(worstCandidate), 1);
+  //   }
+  // }
+        for (let i = 0; i < this.dataLeft.length; i++) {
+          this.dataLeft[i].splice(this.dataLeft[i].indexOf(worstCandidate), 1);
+        }
       }
-    }
 
     const finalRoundScores = this.findRoundScores();
     // Compare the final two candidates and return the winner
@@ -248,6 +283,7 @@ export class ViewDataComponent implements OnInit {
       );
       return this.candidatesLeft[1];
     }
+
   }
 
   // get the percent of votes

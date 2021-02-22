@@ -4,7 +4,7 @@ import {
   AngularFirestore,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Options } from '../shared/models/options.model';
+import { Surveys } from '../shared/models/options.model';
 import OptionsClass from '../shared/models/options';
 import { User } from 'firebase';
 import { take } from 'rxjs/operators';
@@ -14,25 +14,25 @@ import { take } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class SaveOptionsService {
-  optionsRef: AngularFirestoreCollection<Options>;
-  options: Observable<Options[]>;
+  surveysRef: AngularFirestoreCollection<Surveys>;
+  surveys: Observable<Surveys[]>;
   usersRef: AngularFirestoreCollection<User>;
   users: Observable<User[]>;
   constructor(private afs: AngularFirestore) {
-    this.optionsRef = afs.collection<Options>('options');
-    this.options = this.optionsRef.valueChanges();
+    this.surveysRef = afs.collection<Surveys>('surveys');
+    this.surveys = this.surveysRef.valueChanges();
     this.usersRef = this.afs.collection<User>('users');
     this.users = this.usersRef.valueChanges();
   }
 
   // get all teacher options from firebase
-  getChoices(): Observable<Options[]> {
-    return this.options;
+  getSubmissions(): Observable<Surveys[]> {
+    return this.surveys;
   }
 
   // combine id, the survey name, and options into one document on firebase
   async addOptions(
-    options: Array<string>,
+    surveys: Array<string>,
     surveyName: string,
     email: string,
     displayName: string
@@ -40,7 +40,7 @@ export class SaveOptionsService {
     const id = this.afs.createId();
     const firebaseOptions = [];
 
-    for (const optionsArray of options) {
+    for (const optionsArray of surveys) {
       firebaseOptions.push(optionsArray);
     }
     const newRanking = new OptionsClass(
@@ -50,11 +50,10 @@ export class SaveOptionsService {
       email,
       displayName
     );
-    this.optionsRef.doc(id).set(Object.assign({}, newRanking));
+    this.surveysRef.doc(id).set(Object.assign({}, newRanking));
   }
 
   deleteOptions(surveyName: string) {
-    
   }
 
   // return the current user

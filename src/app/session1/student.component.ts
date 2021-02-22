@@ -6,8 +6,8 @@ import {
   CdkDropList,
 } from '@angular/cdk/drag-drop';
 import { SaveChoiceService } from '../services/save-choice.service';
-import { GetOptionsService } from '../services/get-options.service';
-import { Options } from '../shared/models/options.model';
+import { GetSurveyService } from '../services/get-options.service';
+import { Surveys } from '../shared/models/options.model';
 import { take } from 'rxjs/operators';
 import { SurveyVotersService } from '../services/survey-voters.service';
 import { UserService } from '../services/user.service';
@@ -28,7 +28,7 @@ export class StudentComponent implements OnInit {
   todo = ['Loading...'];
   assignedChoices = [];
   choices = [];
-  options: Options[];
+  surveys: Surveys[];
   surveyNames: Array<string>;
   userId: string;
   currentUser: User;
@@ -41,7 +41,7 @@ export class StudentComponent implements OnInit {
 
   constructor(
     private saveChoiceService: SaveChoiceService,
-    private getOptionsService: GetOptionsService,
+    private getOptionsService: GetSurveyService,
     private surveyVotersService: SurveyVotersService,
     private userService: UserService,
     private authService: AuthService,
@@ -49,7 +49,7 @@ export class StudentComponent implements OnInit {
   ) {
     this.voted = false;
     this.userId = '';
-    this.options = [];
+    this.surveyNames = [];
     this.surveyNames = [];
     this.teacherNames = [];
   }
@@ -68,13 +68,13 @@ export class StudentComponent implements OnInit {
 
   // show the survey names for the user to select
   async showOptions() {
-    this.options = await this.getOptionsService
-      .getOptions()
+    this.surveys = await this.getOptionsService
+      .getSurvey()
       .pipe(take(1))
       .toPromise();
-    console.log('options', this.options);
+    console.log('surveys', this.surveyName);
 
-    this.options.forEach((option) => {
+    this.surveys.forEach((option) => {
       if (!this.teacherNames.includes(option.displayName)) {
         this.teacherNames.push(option.displayName);
       }
@@ -124,7 +124,7 @@ export class StudentComponent implements OnInit {
   showSurveyNames(teacherName: string) {
     this.surveyNames = [];
 
-    this.options.forEach((element) => {
+    this.surveys.forEach((element) => {
       if (element.displayName === teacherName) {
         this.surveyNames.push(element.surveyName);
       }
@@ -151,7 +151,7 @@ export class StudentComponent implements OnInit {
     for (let i = 0; i < this.todo.length; i++) {
       this.todo[i] = this.assignedChoices[i];
     }
-    this.getOptionsService.getOptions();
+    this.getOptionsService.getSurvey();
   }
 
   // save the user vote
