@@ -27,7 +27,7 @@ export class StudentComponent implements OnInit {
   showChoices: boolean;
   todo = ['Loading...'];
   assignedChoices = [];
-  choices = [];
+  submissions = [];
   surveys: Surveys[];
   surveyNames: Array<string>;
   userId: string;
@@ -113,9 +113,9 @@ export class StudentComponent implements OnInit {
       .getOptionsByName(this.surveyName)
       .subscribe((options) => {
         this.todo = options[0].tasks;
-        this.choices = [];
+        this.submissions = [];
         for (const todo of this.todo) {
-          this.choices.push([]);
+          this.submissions.push([]);
         }
       });
     this.hasVoted();
@@ -132,14 +132,14 @@ export class StudentComponent implements OnInit {
   }
 
   choiceIDs() {
-    return this.choices.map((choice, i) => 'choice' + i).concat(['todo']);
+    return this.submissions.map((choice, i) => 'choice' + i).concat(['todo']);
   }
 
   // check if there are more choices than arrays
   hasExtras() {
     // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < this.choices.length; i++) {
-      if (this.choices[i].length > 1) {
+    for (let i = 0; i < this.submissions.length; i++) {
+      if (this.submissions[i].length > 1) {
         return true;
       }
     }
@@ -156,8 +156,8 @@ export class StudentComponent implements OnInit {
 
   // save the user vote
   saveChoiceOrder(event: CdkDragDrop<Array<string>>) {
-    for (let i = 0; i < this.choices.length; i++) {
-      this.result[i] = this.choices[i][0];
+    for (let i = 0; i < this.submissions.length; i++) {
+      this.result[i] = this.submissions[i][0];
     }
     this.saveChoiceService.addChoices(this.result, this.surveyName);
     this.surveyVotersService.addSurveyVoters(this.surveyName, this.currentUser);
@@ -181,14 +181,14 @@ export class StudentComponent implements OnInit {
 
       // move the selected choice if that vote placement is taken
       while (this.hasExtras()) {
-        for (let i = 0; i < this.choices.length; i++) {
-          if (this.choices[i].length > 1) {
+        for (let i = 0; i < this.submissions.length; i++) {
+          if (this.submissions[i].length > 1) {
             // move the selected choice down the voting list
-            if (i < this.choices.length - 1) {
-              transferArrayItem(this.choices[i], this.choices[i + 1], 1, 0);
+            if (i < this.submissions.length - 1) {
+              transferArrayItem(this.submissions[i], this.submissions[i + 1], 1, 0);
             } else {
               // move the selected choice back to the original list when voting list is full
-              transferArrayItem(this.choices[i], this.todo, 1, 0);
+              transferArrayItem(this.submissions[i], this.todo, 1, 0);
             }
           }
         }

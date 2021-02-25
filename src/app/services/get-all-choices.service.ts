@@ -12,27 +12,27 @@ import { Surveys } from '../shared/models/options.model';
   providedIn: 'root'
 })
 export class GetAllChoicesService {
-  allChoices: string[][]; // array of each student's response arrays
+  allSubmissions: string[][]; // array of each student's response arrays
   candidates: Observable<Surveys>[]; // options the teacher set
-  choicesRef: AngularFirestoreCollection<Choice>;
-  choices: Observable<Choice[]>;
+  submissionsRef: AngularFirestoreCollection<Choice>;
+  submissions: Observable<Choice[]>;
 
   constructor(
     private afs: AngularFirestore,
     private getOptionsService: GetSurveyService
   ) {
-    this.choicesRef = afs.collection<Choice>('choices');
-    this.choices = this.choicesRef.valueChanges();
+    this.submissionsRef = afs.collection<Choice>('submissions');
+    this.submissions = this.submissionsRef.valueChanges();
   }
 
   // get the student choices
   getStudentResponses(): Observable<Choice[]> {
-    return this.choices;
+    return this.submissions;
   }
 
   // get student choices by the specific survey
   getStudentResponsesByName(name: string): Observable<Choice[]> {
-    const query = this.afs.collection<Choice>('choices', ref =>
+    const query = this.afs.collection<Choice>('submissions', ref =>
       ref.where('surveyName', '==', name)
     );
     return query.valueChanges();
