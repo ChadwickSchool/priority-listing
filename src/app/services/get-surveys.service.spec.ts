@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GetAllChoicesService } from './get-all-choices.service';
+import { GetSurveyService } from './get-surveys.service';
 
-describe('GetAllChoicesService', () => {
+describe('GetOptionsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: GetAllChoicesService = TestBed.get(GetAllChoicesService);
+    const service: GetSurveyService = TestBed.get(GetSurveyService);
     expect(service).toBeTruthy();
   });
+
 });

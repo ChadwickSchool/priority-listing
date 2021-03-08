@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StudentComponent } from './student.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SaveChoiceService } from '../services/save-choice.service';
-import { GetSurveyService } from '../services/get-options.service';
+import { GetSurveyService } from '../services/get-surveys.service';
 import { of } from 'rxjs';
 
 describe('StudentComponent', () => {

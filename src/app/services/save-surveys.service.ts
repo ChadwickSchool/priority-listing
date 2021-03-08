@@ -5,7 +5,7 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Surveys } from '../shared/models/options.model';
-import OptionsClass from '../shared/models/options';
+import OptionsClass from '../shared/models/surveys';
 import { User } from 'firebase';
 import { take } from 'rxjs/operators';
 // import { User } from '../shared/models/user.model';

@@ -3,7 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection
 } from '@angular/fire/firestore';
-import { GetSurveyService } from './get-options.service';
+import { GetSurveyService } from './get-surveys.service';
 import { Observable } from 'rxjs';
 import { Choice } from '../shared/models/choice.model';
 import { Surveys } from '../shared/models/options.model';

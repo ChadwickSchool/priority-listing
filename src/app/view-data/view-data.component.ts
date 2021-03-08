@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RankVotesService } from '../services/rank-votes.service';
-import { GetAllChoicesService } from '../services/get-all-choices.service';
+import { GetAllChoicesService } from '../services/get-all-submissions.service';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { GetSurveyService } from '../services/get-options.service';
+import { GetSurveyService } from '../services/get-surveys.service';
 import {
   AngularFirestoreCollection,
   AngularFirestore,

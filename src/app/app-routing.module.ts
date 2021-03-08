@@ -26,6 +26,10 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
+    path: 'session2',
+    component: StudentThankYouComponent,
+  },
+  {
     path: 'teacher',
     component: TeacherComponent,
     canActivate: [LoginGuard, AdminGuard],
