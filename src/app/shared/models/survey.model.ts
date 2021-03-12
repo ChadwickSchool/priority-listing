@@ -1,6 +1,6 @@
-export interface Surveys {
+export interface Survey {
   id: string;
   surveyName: string;
-  tasks: Array<string>;
+  options: Array<string>;
   displayName: string;
 }

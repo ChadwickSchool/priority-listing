@@ -4,8 +4,8 @@ import {
   AngularFirestore
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Choice as Submission } from '../shared/models/choice.model';
-import ChoiceClass from '../shared/models/choice';
+import { Submission as Submission } from '../shared/models/submission.model';
+import ChoiceClass from '../shared/models/submission';
 
 @Injectable({
   providedIn: 'root'

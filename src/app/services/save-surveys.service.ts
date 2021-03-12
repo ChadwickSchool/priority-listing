@@ -4,7 +4,7 @@ import {
   AngularFirestore,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Surveys } from '../shared/models/options.model';
+import { Survey } from '../shared/models/survey.model';
 import OptionsClass from '../shared/models/surveys';
 import { User } from 'firebase';
 import { take } from 'rxjs/operators';
@@ -14,19 +14,19 @@ import { take } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class SaveOptionsService {
-  surveysRef: AngularFirestoreCollection<Surveys>;
-  surveys: Observable<Surveys[]>;
+  surveysRef: AngularFirestoreCollection<Survey>;
+  surveys: Observable<Survey[]>;
   usersRef: AngularFirestoreCollection<User>;
   users: Observable<User[]>;
   constructor(private afs: AngularFirestore) {
-    this.surveysRef = afs.collection<Surveys>('surveys');
+    this.surveysRef = afs.collection<Survey>('surveys');
     this.surveys = this.surveysRef.valueChanges();
     this.usersRef = this.afs.collection<User>('users');
     this.users = this.usersRef.valueChanges();
   }
 
   // get all teacher options from firebase
-  getSubmissions(): Observable<Surveys[]> {
+  getSubmissions(): Observable<Survey[]> {
     return this.surveys;
   }
 

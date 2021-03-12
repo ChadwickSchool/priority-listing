@@ -9,8 +9,8 @@ import {
   AngularFirestoreCollection,
   AngularFirestore,
 } from '@angular/fire/firestore';
-import { Choice } from '../shared/models/choice.model';
-import { Surveys } from '../shared/models/options.model';
+import { Submission } from '../shared/models/submission.model';
+import { Survey } from '../shared/models/survey.model';
 import { StudentService } from '../services/student.service';
 import { User } from '../shared/models/user.model';
 import { SurveyVotersService } from '../services/survey-voters.service';
@@ -33,10 +33,10 @@ export class ViewDataComponent implements OnInit {
   normalVoting;
   dataLeft: string[][]; // List of student choices. (List of list of strings)
   candidatesLeft: string[]; // List of option names. (List of strings)
-  submissionsRef: AngularFirestoreCollection<Choice>;
-  submissions: Observable<Choice[]>;
+  submissionsRef: AngularFirestoreCollection<Submission>;
+  submissions: Observable<Submission[]>;
   surveyNames: Array<string>;
-  surveys: Surveys[];
+  surveys: Survey[];
   surveyName = '';
   newArray;
 
@@ -46,7 +46,7 @@ export class ViewDataComponent implements OnInit {
     private surveyVotersService: SurveyVotersService,
     private getAllChoicesService: GetAllChoicesService
   ) {
-    this.submissionsRef = afs.collection<Choice>('submissions');
+    this.submissionsRef = afs.collection<Submission>('submissions');
     this.submissions = this.submissionsRef.valueChanges();
     this.solution = '';
     this.students = [];

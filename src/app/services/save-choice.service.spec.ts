@@ -4,8 +4,8 @@ import { SaveChoiceService } from './save-choice.service';
 
 import { of } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Choice } from '../shared/models/choice.model';
-import ChoiceClass from '../shared/models/choice';
+import { Choice } from '../shared/models/submission.model';
+import ChoiceClass from '../shared/models/submission';
 
 describe('SaveChoiceService', () => {
   // let service: SaveChoiceService;

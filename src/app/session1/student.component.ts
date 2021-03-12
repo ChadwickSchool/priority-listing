@@ -7,7 +7,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { SaveChoiceService } from '../services/save-choice.service';
 import { GetSurveyService } from '../services/get-surveys.service';
-import { Surveys } from '../shared/models/options.model';
+import { Survey } from '../shared/models/survey.model';
 import { take } from 'rxjs/operators';
 import { SurveyVotersService } from '../services/survey-voters.service';
 import { UserService } from '../services/user.service';
@@ -28,7 +28,7 @@ export class StudentComponent implements OnInit {
   todo = ['Loading...'];
   assignedChoices = [];
   choices = [];
-  surveys: Surveys[];
+  surveys: Survey[];
   surveyNames: Array<string>;
   userId: string;
   currentUser: User;
@@ -112,7 +112,7 @@ export class StudentComponent implements OnInit {
     this.getOptionsService
       .getOptionsByName(this.surveyName)
       .subscribe((options) => {
-        this.todo = options[0].tasks;
+        this.todo = options[0].options;
         this.choices = [];
         for (const todo of this.todo) {
           this.choices.push([]);

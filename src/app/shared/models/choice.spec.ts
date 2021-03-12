@@ -1,4 +1,4 @@
-import ChoiceClass from './choice';
+import ChoiceClass from './submission';
 
 
 

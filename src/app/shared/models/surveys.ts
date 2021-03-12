@@ -1,22 +1,22 @@
-import { Surveys } from './options.model';
+import { Survey } from './survey.model';
 
-export default class OptionsClass implements Surveys {
+export default class SurveyClass implements Survey {
   id: string;
   surveyName: string;
-  tasks: Array<string>;
+  options: Array<string>;
   email: string;
   displayName: string;
 
   constructor(
     id: string,
     surveyName: string,
-    tasks: Array<string>,
+    options: Array<string>,
     email: string,
     displayName: string
   ) {
     this.id = id;
     this.surveyName = surveyName;
-    this.tasks = tasks;
+    this.options = options;
     this.email = email;
     this.displayName = displayName;
   }

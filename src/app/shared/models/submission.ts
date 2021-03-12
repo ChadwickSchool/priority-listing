@@ -1,7 +1,7 @@
-import { Choice } from './choice.model';
+import { Submission } from './submission.model';
 
 
-export default class ChoiceClass implements Choice {
+export default class SubmissionClass implements Submission {
   id: string;
   // uid: string;
   surveyName: string;
