@@ -13,6 +13,7 @@ import ChoiceClass from '../shared/models/submission';
 export class SaveChoiceService {
   submissionsRef: AngularFirestoreCollection<Submission>;
   submissions: Observable<Submission[]>;
+  timestamp: Date = new Date();
   constructor(private afs: AngularFirestore) {
     this.submissionsRef = afs.collection<Submission>('submissions');
     this.submissions = this.submissionsRef.valueChanges();
@@ -28,5 +29,6 @@ export class SaveChoiceService {
     const id = this.afs.createId();
     const newRanking = new ChoiceClass(id, surveyName, submissions);
     this.submissionsRef.doc(id).set(Object.assign({}, newRanking));
+    this.timestamp = new Date();
   }
 }
